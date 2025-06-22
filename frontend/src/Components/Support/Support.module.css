@@ -1,0 +1,40 @@
+.supportSection{
+    text-align: center;
+    padding: 3rem;
+  }
+  .supportIcon {
+    font-size: 4rem;
+    color: #25d366;
+    margin-bottom: 1rem;
+  }
+  
+  .supportTitle {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #343a40;
+  }
+  
+  .supportText {
+    font-size: 1.1rem;
+    color: #6c757d;
+    margin-bottom: 1.5rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .whatsappButton {
+    display: inline-block;
+    background: #25d366;
+    color: #ffffff;
+    padding: 1rem 2rem;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .whatsappButton:hover {
+    background: #128c7e;
+    transform: translateY(-3px);
+  }

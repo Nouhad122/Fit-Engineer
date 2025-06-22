@@ -1,0 +1,42 @@
+.paymentSection {
+    text-align: center;
+    padding: 3rem;
+    background-color: var(--second-bg-color);
+}
+.paymentGrid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+  }
+  
+  .paymentMethod {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: #f8f9fa;
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    border: 1px solid #dee2e6;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #495057;
+  }
+  
+  .paymentIcon {
+    font-size: 1.5rem;
+    color: #1e3c72;
+  }
+
+  @media (max-width: 480px) {
+    .paymentGrid {
+        flex-direction: column;
+        align-items: center;
+      }
+    
+    .paymentMethod {
+        width: 100%;
+        max-width: 250px;
+        justify-content: center;
+    }
+  }

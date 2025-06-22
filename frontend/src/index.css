@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Outfit:wght@100..900&family=Playwrite+IT+Moderna:wght@100..400&family=Poppins:wght@300;400;500;600;700&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+:root{
+    --font-family: 'Poppins', sans-serif;
+    --dark-blue: #001840;
+    --light-blue: #122557;
+    --dark-yellow: #F5C400;
+    --light-yellow: #FFDC5F;
+    --white-color: #ffffff;
+    --bg-color: #fefdfd;
+    --second-bg-color: rgb(244, 242, 242);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: var(--font-family);
+    color: var(--dark-blue);
+    background-color: var(--bg-color);
+}
+
+html{
+    font-size: 100%;
+}
+
+
+@media (max-width: 855px){
+    html{
+        font-size: 85%;
+    }
+}

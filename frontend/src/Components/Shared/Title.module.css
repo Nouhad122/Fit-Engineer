@@ -1,0 +1,21 @@
+.sectionTitle {
+    text-align: center;
+    font-size: 2.1rem;
+    font-weight: 700;
+    color: var(--light-blue);
+    margin-bottom: 3rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  @media (max-width: 768px) {
+    .sectionTitle {
+      font-size: 2rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .sectionTitle {
+      font-size: 1.8rem;
+    }
+  }
