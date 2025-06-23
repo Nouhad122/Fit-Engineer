@@ -1,22 +1,29 @@
 import './App.css'
-import Navbar from './Components/Navbar/Navbar'
-import Carousel from './Components/Carousel/Carousel'
-import Offers from './Components/Offers/Offers'
-import Pricing from './Components/Pricing/Pricing'
-import Support from './Components/Support/Support'
-import PaymentMethods from './Components/PaymentMethods/PaymentMethods'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import RootLayout from './RootLayout'
+import Home from './Pages/Home'
+import ClientFormPage from './Pages/ClientFormPage'
 
 function App() {
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <RootLayout />,
+      children: [
+        {
+          index: true,
+          element: <Home />
+        },
+        {
+          path: '/client-form',
+          element: <ClientFormPage />
+        }
+      ]
+    }
+  ])
 
   return (
-    <>
-      <Navbar />
-      <Carousel />
-      <Offers />
-      <Pricing />
-      <PaymentMethods />
-      <Support />
-    </>
+    <RouterProvider router={router} />
   )
 }
 

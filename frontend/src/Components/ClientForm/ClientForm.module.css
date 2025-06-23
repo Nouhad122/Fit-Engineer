@@ -1,0 +1,124 @@
+.formSection {
+  padding: 4rem 0;
+  background: #f8f9fa;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.formTitle {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e3c72;
+  margin-bottom: 2.5rem;
+  letter-spacing: 1px;
+}
+
+.form {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(30, 60, 114, 0.08);
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.formGroupGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+label {
+  font-weight: 600;
+  color: #1e3c72;
+  margin-bottom: 0.2rem;
+}
+
+input,
+select,
+textarea {
+  padding: 0.7rem 1rem;
+  border: 1.5px solid #cfd8dc;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: #f7fafc;
+  color: #222;
+  transition: border-color 0.2s;
+  outline: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #1e3c72;
+  background: #fff;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 40px;
+  max-height: 120px;
+}
+
+.radioGroup {
+  display: flex;
+  gap: 2rem;
+  margin-top: 0.5rem;
+}
+
+.radioGroup label {
+  font-weight: 500;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mt {
+  margin-top: 0.7rem;
+}
+
+.submitButton {
+  margin-top: 1.5rem;
+  background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 1rem 0;
+  border: none;
+  border-radius: 30px;
+  cursor: not-allowed;
+  box-shadow: 0 4px 16px rgba(30, 60, 114, 0.10);
+  transition: background 0.2s, transform 0.2s;
+  width: 100%;
+  letter-spacing: 1px;
+}
+
+.submitButton:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 600px) {
+  .form {
+    padding: 1.2rem 0.5rem;
+  }
+  .formTitle {
+    font-size: 1.3rem;
+  }
+  .formGroupGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+} 

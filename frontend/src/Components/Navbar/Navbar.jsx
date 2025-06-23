@@ -53,7 +53,7 @@ const Navbar = () => {
 
           {/* Navigation Links */}
               <div className={`${classes.navLinks} ${isMenuOpen ? classes.active : ''}`}>
-                <Link to="/" className={classes.navLink} onClick={closeMenu}>Client Form</Link>
+                <Link to="/client-form" className={classes.navLink} onClick={closeMenu}>Client Form</Link>
                 <a href="#offers" className={classes.navLink} onClick={closeMenu}>What I Offer</a>
                 <a href="#who-am-i" className={classes.navLink} onClick={closeMenu}>Who Am I</a>
                 <a href='#pricing' className={classes.navLink} onClick={closeMenu}>Pricing</a>
