@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const clientsRoutes = require('./routes/clients-routes');
 const HttpError = require('./models/http-error');
+const mongoose = require('mongoose');
 const app = express();
 
 app.use(bodyParser.json());
@@ -21,6 +22,10 @@ app.use((error, req, res, next) =>{
     res.json({message: error.message || "An unknown error occured!"});
 });
 
-app.listen(3000, () => {
-    console.log('Server is running on port 3000');
+mongoose.connect('mongodb+srv://nouhadalhallab122:PFgnMYCT8Xa5lU2U@mostafa-cluster.26fdouu.mongodb.net/clients?retryWrites=true&w=majority&appName=mostafa-cluster')
+.then(() => {
+    app.listen(3000);
+})
+.catch(err => {
+    console.log(err);
 });

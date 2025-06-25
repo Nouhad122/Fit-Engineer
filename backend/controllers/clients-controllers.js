@@ -19,54 +19,51 @@ let DUMMY_CLIENTS = [
         whatsapp: '43543',
         workoutType: 'cdsvfs',
     },
-    {
-        id: 'c2',
-        activity: 'Moderate',
-        age: '32',
-        allergies: 'vsdcdsv',
-        email: 'nouhad@gmail.com',
-        fullName: 'Nouhad',
-        gender: 'Male',
-        height: '170',
-        injuries: 'fvfdcsd',
-        mainGoal: 'Muscle Gain',
-        notes: 'csvfcds',
-        otherGoal: '',
-        pedExperience: 'No',
-        pedExplain: '',
-        weight: '76',
-        weightGoal: 'btbcfv',
-        whatsapp: '43543',
-        workoutType: 'cdsvfs',
-    }
 ]
 
 const HttpError = require('../models/http-error');
 const uuid = require('uuid');
+const Client = require('../models/client');
 
-exports.getClientById = (req, res, next) =>{
+exports.getClients = async (req, res, next) =>{
+    let clients;
+    try{
+        clients = await Client.find();
+    }
+    catch(err){
+        const error = new HttpError('Something went wrong, could not find a client.', 500);
+        return next(error);
+    }
+
+    res.json({clients: clients.map(client => client.toObject({getters: true}))});
+}
+
+exports.getClientById = async (req, res, next) =>{
     const clientId = req.params.cid;
-    const client = DUMMY_CLIENTS.find(client => {
-        return (
-            client.id === clientId
-        );
-    });
+    let client;
+    try{
+        client = await Client.findById(clientId);
+    }
+    catch(err){
+        const error = new HttpError('Something went wrong, could not find a client.', 500);
+        return next(error);
+    }
 
     if(!client){
         return next(
             new HttpError("Could not find a client for the provided id.", 404)
         );
     }
-    res.json({client}); 
+    res.json({client: client.toObject({getters: true})}); 
 }
 
-exports.createClient = (req, res, next) =>{
+exports.createClient = async (req, res, next) =>{
     const {
          activity, age, allergies, email, fullName, gender, height, injuries,
           mainGoal, notes, otherGoal, pedExperience, pedExplain, weight, weightGoal,
            whatsapp, workoutType } = req.body;
 
-    const createdClient = {
+    const createdClient = new Client({
         id: uuid.v4(),
         activity,
         age,
@@ -85,15 +82,30 @@ exports.createClient = (req, res, next) =>{
         weightGoal,
         whatsapp, 
         workoutType
-    }
+    });
 
-    DUMMY_CLIENTS.unshift(createdClient);
+    try{
+        await createdClient.save();
+    }
+    catch(err){
+        const error = new HttpError('Creating client failed, please try again.', 500);
+        return next(error);
+    }
 
     res.status(201).json({client: createdClient});
 }
 
-exports.deleteClient = (req, res, next) =>{
+exports.deleteClient = async (req, res, next) => {
     const clientId = req.params.cid;
-    DUMMY_CLIENTS = DUMMY_CLIENTS.filter(client => client.id !== clientId);
-    res.status(200).json({message: "Deleted Client."});
-}
+
+    try {
+        const client = await Client.findByIdAndDelete(clientId);
+        if (!client) {
+            return next(new HttpError('Could not find a client for the provided id.', 404));
+        }
+        res.status(200).json({ message: "Deleted Client." });
+    } catch (err) {
+        const error = new HttpError('Something went wrong, could not delete client.', 500);
+        return next(error);
+    }
+};

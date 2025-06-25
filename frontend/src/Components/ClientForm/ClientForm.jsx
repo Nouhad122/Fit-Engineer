@@ -113,6 +113,7 @@ const ClientForm = () => {
                 onChange={handleChange}
                 placeholder="Please specify your goal"
                 className={classes.mt}
+                required
               />
             )}
           </div>
@@ -130,17 +131,17 @@ const ClientForm = () => {
 
           <div className={classes.formGroup}>
             <label>Do You Have Any Injuries or Health Issues?</label>
-            <textarea name="injuries" value={form.injuries} onChange={handleChange} rows={2} />
+            <textarea name="injuries" value={form.injuries} onChange={handleChange} rows={2} required/>
           </div>
 
           <div className={classes.formGroup}>
             <label>Any Food Allergies or Restrictions?</label>
-            <textarea name="allergies" value={form.allergies} onChange={handleChange} rows={2} />
+            <textarea name="allergies" value={form.allergies} onChange={handleChange} rows={2} required/>
           </div>
 
           <div className={classes.formGroup}>
             <label>What Type of Workouts You Like or Want? (gym, home, etc.)</label>
-            <input type="text" name="workoutType" value={form.workoutType} onChange={handleChange} />
+            <input type="text" name="workoutType" value={form.workoutType} onChange={handleChange} required/>
           </div>
 
           <div className={classes.formGroup}>
@@ -175,6 +176,7 @@ const ClientForm = () => {
                 onChange={handleChange}
                 placeholder="Please explain your experience"
                 className={classes.mt}
+                required
               />
             )}
           </div>
