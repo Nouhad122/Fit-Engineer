@@ -58,6 +58,7 @@ const Navbar = () => {
                 <a href="#who-am-i" className={classes.navLink} onClick={closeMenu}>Who Am I</a>
                 <a href='#pricing' className={classes.navLink} onClick={closeMenu}>Pricing</a>
                 <a href='#contact' className={classes.navLink} onClick={closeMenu}>Contact Me</a>
+                <Link to="/admin-dashboard" className={classes.navLink} onClick={closeMenu}>Admin Dashboard</Link>
               </div>
 
           {/* Action Buttons */}

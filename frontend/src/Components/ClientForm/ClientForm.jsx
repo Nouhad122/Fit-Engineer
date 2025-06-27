@@ -37,21 +37,24 @@ const ClientForm = () => {
     setLoading(true);
     setSuccess(null);
     setError(null);
-    // try {
-    //   // Replace the URL below with the actual backend endpoint
-    //   const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify(form),
-    //   });
-    //   if (!response.ok) throw new Error('Failed to submit form');
-    //   setSuccess('Your information has been submitted successfully!');
-    //   setForm(initialState);
-    // } catch (err) {
-    //   setError('There was an error submitting your information. Please try again.');
-    // } finally {
-    //   setLoading(false);
-    // }
+    try {
+      const response = await fetch('http://localhost:3000/api/clients-forms', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+
+      if (!response.ok){
+        throw new Error('Failed to submit form');
+      } 
+
+      setSuccess('Your information has been submitted successfully!');
+      setForm(initialState);
+    } catch (err) {
+      setError('There was an error submitting your information. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
   console.log(form);
   return (

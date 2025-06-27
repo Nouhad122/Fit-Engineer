@@ -3,9 +3,7 @@ import ClientForm from '../Components/ClientForm/ClientForm'
 
 const ClientFormPage = () => {
   return (
-    <>
-      <ClientForm />
-    </>
+    <ClientForm />
   )
 }
 
