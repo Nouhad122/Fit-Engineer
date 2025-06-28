@@ -56,7 +56,7 @@ const ClientForm = () => {
       setLoading(false);
     }
   };
-  console.log(form);
+  
   return (
     <section className={classes.formSection} id="client-form">
       <div className={classes.container}>
