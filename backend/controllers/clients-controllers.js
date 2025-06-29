@@ -1,26 +1,3 @@
-let DUMMY_CLIENTS = [
-    {
-        id: 'c1',
-        activity: 'Moderate',
-        age: '32',
-        allergies: 'vsdcdsv',
-        email: 'mostafa@gmail.com',
-        fullName: 'Mostafa',
-        gender: 'Male',
-        height: '170',
-        injuries: 'fvfdcsd',
-        mainGoal: 'Muscle Gain',
-        notes: 'csvfcds',
-        otherGoal: '',
-        pedExperience: 'No',
-        pedExplain: '',
-        weight: '76',
-        weightGoal: 'btbcfv',
-        whatsapp: '43543',
-        workoutType: 'cdsvfs',
-    },
-]
-
 const HttpError = require('../models/http-error');
 const uuid = require('uuid');
 const Client = require('../models/client');

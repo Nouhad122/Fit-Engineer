@@ -11,7 +11,7 @@
 }
 .clientsSection h2{
   font-size: 1.4rem;
-  color: #1e3c72;
+  color: var(--light-blue);
   margin-bottom: 0.5rem;
   font-weight: 700;
 }
@@ -28,6 +28,8 @@
 
 .clientsList li {
     display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
     align-items: center;
     justify-content: space-between;
     padding: 0.7rem 1rem;

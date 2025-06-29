@@ -4,6 +4,7 @@ import RootLayout from './RootLayout'
 import Home from './Pages/Home'
 import ClientFormPage from './Pages/ClientFormPage'
 import AdminDashboardPage from './Pages/AdminDashboardPage'
+import DetailsPage from './Pages/DetailsPage'
 
 function App() {
   const router = createBrowserRouter([
@@ -22,6 +23,10 @@ function App() {
         {
           path: '/admin-dashboard',
           element: <AdminDashboardPage />
+        },
+        {
+          path: '/client-details/:id',
+          element: <DetailsPage />
         }
       ]
     }
