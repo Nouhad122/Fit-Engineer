@@ -1,0 +1,174 @@
+.demoContainer {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: var(--white-color);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 24, 64, 0.1);
+  text-align: center;
+}
+
+.demoContainer h2 {
+  color: var(--dark-blue);
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.demoContainer p {
+  color: var(--light-blue);
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.buttonGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.demoButton {
+  background: linear-gradient(135deg, var(--dark-blue), var(--light-blue));
+  color: var(--white-color);
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 24, 64, 0.2);
+}
+
+.demoButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 24, 64, 0.3);
+}
+
+.demoButton:active {
+  transform: translateY(0);
+}
+
+/* Modal Demo Content Styles */
+.modalDemoContent {
+  text-align: left;
+}
+
+.modalDemoContent h3 {
+  color: var(--dark-blue);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.modalDemoContent p {
+  color: var(--light-blue);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.modalDemoContent ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 2rem;
+}
+
+.modalDemoContent li {
+  color: var(--dark-blue);
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--second-bg-color);
+  font-weight: 500;
+}
+
+.modalDemoContent li:last-child {
+  border-bottom: none;
+}
+
+.demoActions {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.actionButton {
+  background: linear-gradient(135deg, var(--dark-blue), var(--light-blue));
+  color: var(--white-color);
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
+  min-width: 120px;
+}
+
+.actionButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(0, 24, 64, 0.2);
+}
+
+.actionButton.secondary {
+  background: linear-gradient(135deg, var(--light-yellow), var(--dark-yellow));
+  color: var(--dark-blue);
+}
+
+.scrollContent {
+  background: var(--bg-color);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--second-bg-color);
+}
+
+.scrollContent h4 {
+  color: var(--dark-blue);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.scrollContent p {
+  color: var(--light-blue);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 0.8rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .demoContainer {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+  
+  .demoContainer h2 {
+    font-size: 1.5rem;
+  }
+  
+  .buttonGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .demoActions {
+    flex-direction: column;
+  }
+  
+  .actionButton {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .demoContainer {
+    padding: 1rem;
+  }
+  
+  .demoButton {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+  }
+} 
