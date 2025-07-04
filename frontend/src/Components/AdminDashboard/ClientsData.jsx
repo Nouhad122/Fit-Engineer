@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import classes from './ClientsData.module.css';
 import Button from '../Shared/Button';
+import Modal from '../Shared/Modal';
+import ModalContext from '../../store/ModalContext.jsx';
+const ClientsData = ({clients, loading, error, onClientDeleted}) => {
+  const { openModal, openedModal } = useContext(ModalContext);
+  const [clientId, setClientId] = useState(null);
 
-const ClientsData = ({clients, loading, error}) => {
   const handleDeleteClient = async (id) =>{
     const res = await fetch(`http://localhost:3000/api/clients-forms/${id}`, {
       method: 'DELETE',
@@ -10,14 +14,18 @@ const ClientsData = ({clients, loading, error}) => {
         'Content-Type': 'application/json',
       },
     });
+
     if(res.ok){
-      alert('Client deleted successfully');
-    }
-    else{
-      alert('Failed to delete client');
+      onClientDeleted();
     }
   }
+
+  const handleDeleteClick = (id) =>{
+    openModal();
+    setClientId(id);
+  }
   return (
+    <>
     <section className={classes.clientsSection}>
         <h2>Clients</h2>
         {loading && <p>Loading clients...</p>}
@@ -32,7 +40,7 @@ const ClientsData = ({clients, loading, error}) => {
                 </p>
                 <div className={classes.listActions}>
                   <Button path={`/client-details/${client.id}`} className={classes.viewButton} isLink>View</Button>
-                  <Button className={classes.deleteButton} onClick={() => handleDeleteClient(client.id)}>Delete</Button>
+                  <Button className={classes.deleteButton} onClick={() => handleDeleteClick(client.id)}>Delete</Button>
                 </div>
                
               </li>
@@ -43,7 +51,15 @@ const ClientsData = ({clients, loading, error}) => {
           
         </ul>
     </section>
-
+    {
+      openedModal && 
+      <Modal 
+       title="Are you sure?"
+       message="Deleting this client will remove all their data from the system. This action cannot be undone."
+       onConfirm={() => handleDeleteClient(clientId)}
+      />
+    }
+  </>
   )
 }
 

@@ -1,8 +1,11 @@
-import React, {useEffect, useContext} from 'react'
+import React, { useEffect, useContext } from 'react'
 import { createPortal } from 'react-dom'
+import Button from '../Shared/Button'
 import classes from './Modal.module.css'
+import ModalContext from '../../store/ModalContext.jsx'
 
-const Modal = ({ closeModal, title, message, onNeededAction }) => {
+const Modal = ({ title, message, onConfirm }) => {
+
   useEffect(() => {
     document.body.style.overflow = 'hidden';
 
@@ -11,28 +14,25 @@ const Modal = ({ closeModal, title, message, onNeededAction }) => {
     };
   }, []);
 
-  const handleAction = () => {
-    onNeededAction();
-    sideCompController.hideContentInModal();
+  const { closeModal } = useContext(ModalContext);
+
+  const handleConfirm = () =>{
+    onConfirm();
+    closeModal();
   }
 
   return createPortal(
-    <div className={classes.blurBackground} onClick={closeModal}>
-      {
-        sideCompController.modalContent && (
-          <div className={classes.blurContent} onClick={e => e.stopPropagation()}>
-            <h1>{title}</h1>
-            <p>{message}</p>
-            {onNeededAction && (
-              <div className={classes.modalBtns}>
-                <button className={classes.mBtn} onClick={sideCompController.hideContentInModal}>Cancel</button> 
-                <button className={classes.mBtn} onClick={handleAction}>Confirm</button>  
-              </div>
-            )}            
-          </div>
-        )
-      }
-    </div>
+    <>
+    <div className={classes.backdrop} onClick={closeModal}></div>
+    <dialog className={classes.modal} open>
+      <h2>{title}</h2>
+      <p>{message}</p>
+      <div className={classes.modalActions}>
+        <Button className={classes.confirmBtn} onClick={handleConfirm}>Confirm</Button>
+        <Button className={classes.cancelBtn} onClick={closeModal}>Cancel</Button>
+      </div>
+    </dialog>
+    </>
   , document.getElementById("modal"))
 }
 

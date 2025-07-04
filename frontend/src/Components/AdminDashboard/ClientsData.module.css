@@ -42,10 +42,14 @@
     font-size: .8rem;
 }
 .deleteButton{
-    background: rgb(192, 51, 51) !important;
+    background: var(--red-color) !important;
     margin-left: 1rem;
     color: var(--white-color);
     padding: .7rem 2rem !important;
+    box-shadow: 0 4px 15px rgb(149, 2, 2);
+}
+.deleteButton:hover{
+    box-shadow: 0 6px 20px var(--red-color);
 }
 
 .viewButton{

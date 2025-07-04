@@ -4,8 +4,8 @@
     box-shadow: 0 8px 32px rgba(30, 60, 114, 0.08);
     padding: 2rem 1.5rem;
     flex: 1 1 350px;
-    min-width: 320px;
-    max-width: 500px;
+    min-width: 250px;
+    max-width: 800px;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;

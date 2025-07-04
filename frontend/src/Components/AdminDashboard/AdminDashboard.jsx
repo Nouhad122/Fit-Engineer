@@ -11,8 +11,6 @@ const AdminDashboard = () => {
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
 
-  // Fetch users from backend
-  useEffect(() => {
     const fetchClients = async () => {
       setLoading(true);
       setError(null);
@@ -26,13 +24,14 @@ const AdminDashboard = () => {
         setLoading(false);
       }
     };
-    fetchClients();
-  }, []);
+
+    useEffect(() =>{
+      fetchClients();
+    }, []);
 
   const handleReviewSubmit = (e) => {
     e.preventDefault();
     if (!selectedClient || !review.trim()) return;
-    // Here you would send the review to your backend
     setSuccess(`Review for ${selectedClient.fullName} submitted!`);
     setReview('');
     setTimeout(() => setSuccess(null), 2000);
@@ -40,14 +39,13 @@ const AdminDashboard = () => {
 
   return (
     <div className={classes['admin-dashboard']}>
-      {/* Section 1: User List */}
       <ClientsData
         clients={clients} 
         loading={loading}
         error={error}
+        onClientDeleted={fetchClients}
       />
 
-      {/* Section 2: Review Input */}
       <ClientsReviews
         clients={clients}
         selectedClient={selectedClient}
