@@ -1,16 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import classes from './ClientDetails.module.css';
 import InfoCard from './InfoCard';
 import ClientHeader from './ClientHeader';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import ModalContext from '../../store/ModalContext.jsx';
+import Modal from '../Shared/Modal';
 
 const ClientDetails = () => {
+    const { openModal, openedModal } = useContext(ModalContext);
+    const navigate = useNavigate();
     const { id } = useParams();
     const [client, setClient] = useState({});
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+  
     useEffect(() =>{
-        const fetchClientData = async (id) =>{
+        const fetchClientData = async () =>{
             setLoading(true);
             setError(null);
 
@@ -25,27 +30,8 @@ const ClientDetails = () => {
                 setLoading(false);
             }
         }
-        fetchClientData(id);
-    },[]);
-//   const client = {
-//     fullName: 'John Doe',
-//     email: 'john.doe@example.com',
-//     whatsapp: '+1234567890',
-//     age: 28,
-//     gender: 'Male',
-//     height: 175,
-//     weight: 75,
-//     mainGoal: 'Muscle Gain',
-//     otherGoal: '',
-//     activity: 'Moderate',
-//     injuries: 'Minor knee injury from sports',
-//     allergies: 'Peanuts and shellfish',
-//     workoutType: 'Gym workouts with focus on strength training',
-//     pedExperience: 'No',
-//     pedExplain: '',
-//     weightGoal: 'Gain 10kg of muscle mass',
-//     notes: 'Prefers morning workouts, interested in nutrition guidance'
-//   };
+        fetchClientData();
+    },[id]);
 
   const renderField = (label, value, type = 'text') => {
     if (!value || value === '') return null;
@@ -64,7 +50,29 @@ const ClientDetails = () => {
     );
   };
 
+  const handleDeleteClient = async () =>{
+    const res = await fetch(`http://localhost:3000/api/clients-forms/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if(res.ok){
+      navigate('/admin-dashboard');
+    }
+  }
+
+  const handleDeleteClick = () =>{
+    openModal({
+      title: "Are you sure?",
+      message: "Deleting this client will remove all their data from the system. This action cannot be undone.",
+      onConfirm: handleDeleteClient
+    });
+  }
+
   return (
+    <>
     <div className={classes.clientDetailsContainer}>
         {loading ? 
             <p>Loading Client Data...</p>
@@ -125,7 +133,7 @@ const ClientDetails = () => {
         </div>
   
         <div className={classes.actions}>
-          <button className={classes.deleteButton}>
+          <button className={classes.deleteButton} onClick={handleDeleteClick}>
             🗑️ Delete Client
           </button>
         </div>
@@ -134,6 +142,8 @@ const ClientDetails = () => {
 
         {error && <p className={classes.error}>{error}</p>}
     </div>
+    {openedModal && <Modal />}
+    </>
   );
 };
 

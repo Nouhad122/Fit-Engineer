@@ -10,8 +10,8 @@ const InfoCard = ({ title, icon, fields }) => {
         </h2>
         <div className={classes.fieldsGrid}>
             {
-              fields.map(field =>(
-                field
+              fields.map((field, index) =>(
+                <span key={index}>{field}</span>
               ))
             }
         </div>

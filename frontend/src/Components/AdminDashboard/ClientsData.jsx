@@ -5,7 +5,6 @@ import Modal from '../Shared/Modal';
 import ModalContext from '../../store/ModalContext.jsx';
 const ClientsData = ({clients, loading, error, onClientDeleted}) => {
   const { openModal, openedModal } = useContext(ModalContext);
-  const [clientId, setClientId] = useState(null);
 
   const handleDeleteClient = async (id) =>{
     const res = await fetch(`http://localhost:3000/api/clients-forms/${id}`, {
@@ -21,8 +20,11 @@ const ClientsData = ({clients, loading, error, onClientDeleted}) => {
   }
 
   const handleDeleteClick = (id) =>{
-    openModal();
-    setClientId(id);
+    openModal({
+      title: "Are you sure?",
+      message: "Deleting this client will remove all their data from the system. This action cannot be undone.",
+      onConfirm: () => handleDeleteClient(id)
+    });
   }
   return (
     <>
@@ -52,12 +54,7 @@ const ClientsData = ({clients, loading, error, onClientDeleted}) => {
         </ul>
     </section>
     {
-      openedModal && 
-      <Modal 
-       title="Are you sure?"
-       message="Deleting this client will remove all their data from the system. This action cannot be undone."
-       onConfirm={() => handleDeleteClient(clientId)}
-      />
+      openedModal && <Modal />
     }
   </>
   )

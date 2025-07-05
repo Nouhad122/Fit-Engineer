@@ -1,6 +1,6 @@
 const HttpError = require('../models/http-error');
-const uuid = require('uuid');
 const Client = require('../models/client');
+const uuid = require('uuid');
 
 exports.getClients = async (req, res, next) =>{
     let clients;
