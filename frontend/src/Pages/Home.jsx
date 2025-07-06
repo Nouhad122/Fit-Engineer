@@ -4,13 +4,17 @@ import Offers from '../Components/Offers/Offers'
 import Pricing from '../Components/Pricing/Pricing'
 import Support from '../Components/Support/Support'
 import PaymentMethods from '../Components/PaymentMethods/PaymentMethods'
+import WhosMostafa from '../Components/WhosMostafa/WhosMostafa'
+import ReviewsSection from '../Components/ReviewsSection/ReviewsSection'
 
 const Home = () => {
   return (
     <>
       <Carousel />
       <Offers />
+      <WhosMostafa />
       <Pricing />
+      <ReviewsSection />
       <PaymentMethods />
       <Support />
     </>

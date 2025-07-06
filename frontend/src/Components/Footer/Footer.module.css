@@ -1,0 +1,163 @@
+.footer {
+  background: linear-gradient(135deg, var(--dark-blue) 0%, var(--light-blue) 100%);
+  color: var(--white-color);
+  padding: 3rem 0 1rem 0;
+}
+
+.footerContent {
+  max-width: 1200px;
+  padding: 0 3rem;
+}
+
+.footerContent h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(45deg, var(--dark-yellow), var(--light-yellow));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.footerContent p {
+  font-size: 1.1rem;
+  margin: .5rem 0 1rem 0;
+  opacity: 0.9;
+}
+
+.socialLinks {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.socialLinks a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  color: var(--white-color);
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.socialLinks a:hover {
+  background: var(--dark-yellow);
+  color: var(--dark-blue);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(245, 196, 0, 0.3);
+  border-color: var(--light-yellow);
+}
+
+.creator {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 1rem;
+}
+
+.creator h1 {
+  font-size: 1rem;
+  font-weight: 400;
+  margin: 0;
+  opacity: 0.8;
+}
+
+.creator a {
+  color: var(--light-yellow);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.creator a:hover {
+  color: var(--dark-yellow);
+  text-decoration: underline;
+}
+
+/* Tablet Responsive */
+@media (max-width: 768px) {
+  .footer {
+    padding: 2rem 0 1rem 0;
+  }
+  
+  .footerContent {
+    padding: 0 1.5rem;
+  }
+  
+  .footerContent h2 {
+    font-size: 2rem;
+  }
+  
+  .footerContent p {
+    font-size: 1rem;
+  }
+  
+  .socialLinks {
+    gap: 1rem;
+  }
+  
+  .socialLinks a {
+    width: 45px;
+    height: 45px;
+    font-size: 1.3rem;
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+  .footer {
+    padding: 1.5rem 0 1rem 0;
+  }
+  
+  .footerContent {
+    padding: 0 1rem;
+  }
+  
+  .footerContent h2 {
+    font-size: 1.8rem;
+  }
+  
+  .footerContent p {
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .socialLinks {
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .socialLinks a {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+  
+  .creator {
+    padding-top: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  .creator h1 {
+    font-size: 0.9rem;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 360px) {
+  .footerContent h2 {
+    font-size: 1.6rem;
+  }
+  
+  .footerContent p {
+    font-size: 0.9rem;
+  }
+  
+  .socialLinks a {
+    width: 35px;
+    height: 35px;
+    font-size: 1.1rem;
+  }
+}

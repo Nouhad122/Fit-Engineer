@@ -4,9 +4,12 @@
 
 .packagesGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
   margin-bottom: 3rem;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .packageCard {
@@ -25,10 +28,56 @@
   margin-bottom: 0.5rem;
 }
 
+.priceSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
 .packagePrice {
   font-size: 2.5rem;
   font-weight: 700;
   color: var(--light-blue);
+  margin: 0;
+}
+
+.originalPrice {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #6c757d;
+  text-decoration: line-through;
+  margin: 0;
+}
+
+.packageDescription {
+  font-size: 0.95rem;
+  color: #6c757d;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.featuresList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem 0;
+  text-align: left;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+  font-size: 0.9rem;
+  color: #495057;
+}
+
+.checkmark {
+  color: var(--dark-yellow);
+  font-weight: bold;
+  font-size: 1rem;
 }
 
 .popular {
@@ -51,6 +100,20 @@
   white-space: nowrap;
 }
 
+.discountBadge {
+  position: absolute;
+  top: -15px;
+  right: 20px;
+  background: var(--red-color);
+  color: var(--white-color);
+  padding: 0.4rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+  z-index: 1;
+}
+
 @media (max-width: 768px) {
   .popular {
     transform: none;
@@ -58,6 +121,8 @@
 
   .packagesGrid {
     grid-template-columns: 1fr;
+    max-width: 100%;
+    padding: 0 1rem;
   }
 }
 
@@ -68,5 +133,22 @@
 
   .packagePrice {
     font-size: 2rem;
+  }
+  
+  .originalPrice {
+    font-size: 1rem;
+  }
+  
+  .packageDescription {
+    font-size: 0.9rem;
+  }
+  
+  .feature {
+    font-size: 0.85rem;
+  }
+  
+  .selectButton {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.9rem;
   }
 } 
