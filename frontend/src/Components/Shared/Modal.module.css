@@ -28,13 +28,7 @@
 }
 
 .modal .cancelBtn{
-    background: var(--red-color);
     margin-left: 1rem;
-    color: var(--white-color);
-    box-shadow: 0 4px 15px rgb(149, 2, 2);
-}
-.modal .cancelBtn:hover{
-    box-shadow: 0 6px 20px var(--red-color);
 }
 
 @media (max-width: 1051px) {

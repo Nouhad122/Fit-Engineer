@@ -3,7 +3,7 @@ import classes from './WhosMostafa.module.css'
 
 const WhosMostafa = () => {
   return (
-    <section className={classes.whosMostafa}>
+    <section className={classes.whosMostafa} id='who-am-i'>
         <h2 className={classes.title}>Who's Mostafa?</h2>
       <div className={classes.container}>
         <div className={classes.imageSection}>

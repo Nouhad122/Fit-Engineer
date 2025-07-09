@@ -19,13 +19,15 @@ export const getAuthHeaders = () => {
       }
     });
   
-    if (response.status === 401) {
-      // Token is invalid or expired
-      localStorage.removeItem('adminToken');
-      localStorage.removeItem('adminUser');
-      window.location.href = '/admin-login';
-      throw new Error('Authentication failed');
-    }
+      if (response.status === 401) {
+    // Token is invalid or expired
+    localStorage.removeItem('adminToken');
+    localStorage.removeItem('adminUser');
+    // Dispatch custom event to notify AdminContext
+    window.dispatchEvent(new Event('adminStatusChanged'));
+    window.location.href = '/admin-login';
+    throw new Error('Authentication failed');
+  }
   
     return response;
   }; 

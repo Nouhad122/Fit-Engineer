@@ -35,6 +35,7 @@ const Login = () => {
             if (response.ok) {
                 localStorage.setItem('adminToken', data.token);
                 localStorage.setItem('adminUser', JSON.stringify(data.user));
+                window.dispatchEvent(new Event('adminStatusChanged'));
                 navigate('/admin-dashboard');
             } else {
                 setError(true);

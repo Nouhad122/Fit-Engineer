@@ -1,12 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Pagination, Autoplay, Navigation } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 import classes from './ReviewsSection.module.css'
-
+import Button from '../Shared/Button'
+import { authenticatedFetch } from '../../utils/api'
+import ModalContext from '../../store/ModalContext'
+import Modal from '../Shared/Modal'
+import AdminContext from '../../store/AdminContext'
 const ReviewsSection = () => {
+  const { isAdmin } = useContext(AdminContext);
+  const { openModal, openedModal } = useContext(ModalContext);
   const [reviews, setReviews] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -31,6 +37,23 @@ const ReviewsSection = () => {
     fetchReviews();
   }, []);
 
+  const handleDeleteReview = async (id) =>{
+    try{
+      const response = await authenticatedFetch(`http://localhost:3000/api/reviews/${id}`, {
+        method: 'DELETE',
+      });
+      if(!response.ok){
+        throw new Error('Failed to delete review');
+      }
+      const reviewsResponse = await fetch('http://localhost:3000/api/reviews');
+      const reviewsData = await reviewsResponse.json();
+      setReviews(reviewsData.reviews || []);
+    }
+    catch(err){
+      setError(err.message);
+    }
+  }
+
   if(loading){
     return <div>Loading...</div>;
   }
@@ -38,7 +61,16 @@ const ReviewsSection = () => {
     return <div>Error: {error}</div>;
   }
 
+  const handleDeleteClick = (id) =>{
+    openModal({
+      title: "Are you sure?",
+      message: "Deleting this review will remove it from the system. This action cannot be undone.",
+      onConfirm: () => handleDeleteReview(id)
+    });
+  }
+
   return (
+    <>
     <section className={classes.reviewsSection}>
       <div className={classes.container}>
         <h2 className={classes.title}>Client Reviews</h2>
@@ -86,6 +118,9 @@ const ReviewsSection = () => {
                   <div className={classes.reviewContent}>
                     <p className={classes.reviewText}>"{review.reviewText}"</p>
                   </div>
+                  {isAdmin && (
+                    <Button onClick={() => handleDeleteClick(review.id)} redBtn>Delete</Button>
+                  )}
                 </div>
               </SwiperSlide>
             ))}
@@ -95,6 +130,10 @@ const ReviewsSection = () => {
         }
       </div>
     </section>
+    {
+      openedModal && <Modal />
+    }
+  </>
   )
 }
 

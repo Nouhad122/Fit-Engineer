@@ -14,7 +14,7 @@ const Carousel = () => {
             Whether you want to lose fat, build muscle, recover from injury, or safely use performance enhancers,
             I’m here to guide you every step of the way.
         </p>
-        <Button className={classes.carouselButton}>Start Now</Button>
+        <Button className={classes.carouselButton} path='/client-form' isLink>Start Now</Button>
       </div>
       
     </div>

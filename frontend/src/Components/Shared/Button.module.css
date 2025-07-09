@@ -17,3 +17,16 @@
     box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
     background: linear-gradient(135deg, #ffed4e 0%, #ffd700 100%);
 }
+
+.redBtn{
+    background: var(--red-color) !important;
+    color: var(--white-color);
+    padding: .7rem 2rem !important;
+    box-shadow: 0 4px 15px rgb(149, 2, 2);
+    border-radius: 0;
+}
+
+.redBtn:hover{
+    box-shadow: 0 6px 20px var(--red-color);
+  }
+  

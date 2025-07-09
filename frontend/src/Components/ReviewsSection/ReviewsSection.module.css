@@ -121,7 +121,6 @@
   transform: translate(-50%, -50%);
 }
 
-
 /* Tablet Responsive */
 @media (max-width: 768px) {
   .reviewsSection {

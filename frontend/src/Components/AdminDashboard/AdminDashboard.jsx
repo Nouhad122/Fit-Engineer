@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classes from './AdminDashboard.module.css';
 import ClientsData from './ClientsData';
 import ClientsReviews from './ClientsReviews';
 import Button from '../Shared/Button';
 import { authenticatedFetch } from '../../utils/api';
+import AdminContext from '../../store/AdminContext';
 
 const AdminDashboard = () => {
+  const { logoutAdmin } = useContext(AdminContext);
   const navigate = useNavigate();
   const [clients, setClients] = useState([]);
   const [selectedClient, setSelectedClient] = useState(null);
@@ -42,8 +44,7 @@ const AdminDashboard = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('adminToken');
-    localStorage.removeItem('adminUser');
+    logoutAdmin();
     navigate('/admin-login');
   };
 
@@ -51,7 +52,7 @@ const AdminDashboard = () => {
     <div className={classes['admin-dashboard']}>
       <div className={classes.header}>
         <h1>Admin Dashboard</h1>
-        <Button onClick={handleLogout} className={classes.logoutButton}>
+        <Button onClick={handleLogout} redBtn>
           Logout
         </Button>
       </div>

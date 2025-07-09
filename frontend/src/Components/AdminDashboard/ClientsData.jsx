@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import classes from './ClientsData.module.css';
 import Button from '../Shared/Button';
 import Modal from '../Shared/Modal';
@@ -42,7 +42,7 @@ const ClientsData = ({clients, loading, error, onClientDeleted}) => {
                 </p>
                 <div className={classes.listActions}>
                   <Button path={`/client-details/${client.id}`} className={classes.viewButton} isLink>View</Button>
-                  <Button className={classes.deleteButton} onClick={() => handleDeleteClick(client.id)}>Delete</Button>
+                  <Button className={classes.deleteButton} onClick={() => handleDeleteClick(client.id)} redBtn>Delete</Button>
                 </div>
                
               </li>

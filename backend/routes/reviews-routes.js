@@ -5,10 +5,10 @@ const reviewsControllers = require('../controllers/reviews-controllers');
 const router = express.Router();
 
 // Public route for creating reviews
-router.post('/', reviewsControllers.createReview);
+router.get('/', reviewsControllers.getReviews);
 
 // Protected routes for admin operations
-router.get('/', auth, reviewsControllers.getReviews);
+router.post('/', auth, reviewsControllers.createReview);
 router.delete('/:rid', auth, reviewsControllers.deleteReview);
 
 module.exports = router;

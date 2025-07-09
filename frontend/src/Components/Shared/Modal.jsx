@@ -33,7 +33,7 @@ const Modal = () => {
       <p>{modalConfig.message}</p>
       <div className={classes.modalActions}>
         <Button className={classes.confirmBtn} onClick={handleConfirm}>Confirm</Button>
-        <Button className={classes.cancelBtn} onClick={closeModal}>Cancel</Button>
+        <Button className={classes.cancelBtn} onClick={closeModal} redBtn>Cancel</Button>
       </div>
     </dialog>
     </>
