@@ -1,15 +1,15 @@
 const express = require('express');
-
+const auth = require('../middleware/auth');
 const clientsControllers = require('../controllers/clients-controllers');
 
 const router = express.Router();
 
-router.get('/', clientsControllers.getClients);
-
-router.get('/:cid', clientsControllers.getClientById);
-
+// Public route for creating clients (form submission)
 router.post('/', clientsControllers.createClient);
 
-router.delete('/:cid', clientsControllers.deleteClient);
+// Protected routes for admin operations
+router.get('/', auth, clientsControllers.getClients);
+router.get('/:cid', auth, clientsControllers.getClientById);
+router.delete('/:cid', auth, clientsControllers.deleteClient);
 
 module.exports = router;

@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import classes from './AdminDashboard.module.css';
 import ClientsData from './ClientsData';
 import ClientsReviews from './ClientsReviews';
+import Button from '../Shared/Button';
+import { authenticatedFetch } from '../../utils/api';
 
 const AdminDashboard = () => {
+  const navigate = useNavigate();
   const [clients, setClients] = useState([]);
   const [selectedClient, setSelectedClient] = useState(null);
   const [review, setReview] = useState('');
@@ -15,7 +19,7 @@ const AdminDashboard = () => {
       setLoading(true);
       setError(null);
       try {
-        const res = await fetch('http://localhost:3000/api/clients-forms');
+        const res = await authenticatedFetch('http://localhost:3000/api/clients-forms');
         const data = await res.json();
         setClients(data.clients || []);
       } catch (err) {
@@ -37,24 +41,39 @@ const AdminDashboard = () => {
     setTimeout(() => setSuccess(null), 2000);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('adminToken');
+    localStorage.removeItem('adminUser');
+    navigate('/admin-login');
+  };
+
   return (
     <div className={classes['admin-dashboard']}>
-      <ClientsData
-        clients={clients} 
-        loading={loading}
-        error={error}
-        onClientDeleted={fetchClients}
-      />
+      <div className={classes.header}>
+        <h1>Admin Dashboard</h1>
+        <Button onClick={handleLogout} className={classes.logoutButton}>
+          Logout
+        </Button>
+      </div>
+      
+      <div className={classes['dashboard-content']}>
+        <ClientsData
+          clients={clients} 
+          loading={loading}
+          error={error}
+          onClientDeleted={fetchClients}
+        />
 
-      <ClientsReviews
-        clients={clients}
-        selectedClient={selectedClient}
-        setSelectedClient={setSelectedClient}
-        review={review}
-        setReview={setReview}
-        success={success}
-        handleReviewSubmit={handleReviewSubmit}
-      />
+        <ClientsReviews
+          clients={clients}
+          selectedClient={selectedClient}
+          setSelectedClient={setSelectedClient}
+          review={review}
+          setReview={setReview}
+          success={success}
+          handleReviewSubmit={handleReviewSubmit}
+        />
+      </div>
     </div>
   );
 };

@@ -1,6 +1,8 @@
+require('dotenv').config();
 const express = require('express');
 const clientsRoutes = require('./routes/clients-routes');
 const reviewsRoutes = require('./routes/reviews-routes');
+const authRoutes = require('./routes/auth-routes');
 const HttpError = require('./models/http-error');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -13,6 +15,7 @@ app.use(cors({
 
 app.use(express.json());
 
+app.use('/api/auth', authRoutes);
 app.use('/api/clients-forms', clientsRoutes);
 app.use('/api/reviews', reviewsRoutes);
 

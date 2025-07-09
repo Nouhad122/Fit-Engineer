@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import classes from './Navbar.module.css';
 import { Link } from 'react-router-dom';
 import Button from '../Shared/Button';
+import ProtectedRoute from '../Shared/ProtectedRoute';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -58,7 +59,7 @@ const Navbar = () => {
                 <a href="#who-am-i" className={classes.navLink} onClick={closeMenu}>Who Am I</a>
                 <a href='#pricing' className={classes.navLink} onClick={closeMenu}>Pricing</a>
                 <a href='#contact' className={classes.navLink} onClick={closeMenu}>Contact Me</a>
-                <Link to="/admin-dashboard" className={classes.navLink} onClick={closeMenu}>Admin Dashboard</Link>
+                <ProtectedRoute><Link to="/admin-dashboard" className={classes.navLink} onClick={closeMenu}>Admin Dashboard</Link></ProtectedRoute>
               </div>
 
           {/* Action Buttons */}

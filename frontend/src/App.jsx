@@ -5,6 +5,8 @@ import Home from './Pages/Home'
 import ClientFormPage from './Pages/ClientFormPage'
 import AdminDashboardPage from './Pages/AdminDashboardPage'
 import DetailsPage from './Pages/DetailsPage'
+import AdminLogin from './Pages/AdminLogin'
+import ProtectedRoute from './Components/Shared/ProtectedRoute'
 
 function App() {
   const router = createBrowserRouter([
@@ -22,11 +24,15 @@ function App() {
         },
         {
           path: '/admin-dashboard',
-          element: <AdminDashboardPage />
+          element: <ProtectedRoute><AdminDashboardPage /></ProtectedRoute>
         },
         {
           path: '/client-details/:id',
           element: <DetailsPage />
+        },
+        {
+          path: '/admin-login',
+          element: <AdminLogin />
         }
       ]
     }

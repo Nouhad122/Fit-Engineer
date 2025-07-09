@@ -1,13 +1,14 @@
 const express = require('express');
-
+const auth = require('../middleware/auth');
 const reviewsControllers = require('../controllers/reviews-controllers');
 
 const router = express.Router();
 
-router.get('/', reviewsControllers.getReviews);
-
+// Public route for creating reviews
 router.post('/', reviewsControllers.createReview);
 
-router.delete('/:rid', reviewsControllers.deleteReview);
+// Protected routes for admin operations
+router.get('/', auth, reviewsControllers.getReviews);
+router.delete('/:rid', auth, reviewsControllers.deleteReview);
 
 module.exports = router;
