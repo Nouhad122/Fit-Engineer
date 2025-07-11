@@ -4,30 +4,24 @@ import classes from './AdminDashboard.module.css';
 import ClientsData from './ClientsData';
 import ClientsReviews from './ClientsReviews';
 import Button from '../Shared/Button';
-import { authenticatedFetch } from '../../utils/api';
+import useHttp from '../../hooks/useHttp';
 import AdminContext from '../../store/AdminContext';
 
 const AdminDashboard = () => {
-  const { logoutAdmin } = useContext(AdminContext);
   const navigate = useNavigate();
+  const { updateAdminStatus } = useContext(AdminContext);
+  const { getClients, loading, error } = useHttp();
   const [clients, setClients] = useState([]);
   const [selectedClient, setSelectedClient] = useState(null);
   const [review, setReview] = useState('');
-  const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(null);
-  const [error, setError] = useState(null);
 
     const fetchClients = async () => {
-      setLoading(true);
-      setError(null);
       try {
-        const res = await authenticatedFetch('http://localhost:3000/api/clients-forms');
-        const data = await res.json();
+        const data = await getClients();
         setClients(data.clients || []);
       } catch (err) {
-        setError('Failed to fetch clients.');
-      } finally {
-        setLoading(false);
+        // Error is handled by useHttp hook
       }
     };
 
@@ -44,7 +38,10 @@ const AdminDashboard = () => {
   };
 
   const handleLogout = () => {
-    logoutAdmin();
+    localStorage.removeItem('adminToken');
+    localStorage.removeItem('adminUser');
+    // Dispatch custom event to notify AdminContext
+    window.dispatchEvent(new Event('adminStatusChanged'));
     navigate('/admin-login');
   };
 

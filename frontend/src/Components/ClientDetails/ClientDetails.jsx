@@ -5,33 +5,27 @@ import ClientHeader from './ClientHeader';
 import { useParams, useNavigate } from 'react-router-dom';
 import ModalContext from '../../store/ModalContext.jsx';
 import Modal from '../Shared/Modal';
+import useHttp from '../../hooks/useHttp';
 
 const ClientDetails = () => {
     const { openModal, openedModal } = useContext(ModalContext);
     const navigate = useNavigate();
     const { id } = useParams();
+    const { getClientById, deleteClient, loading, error } = useHttp();
     const [client, setClient] = useState({});
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
   
     useEffect(() =>{
         const fetchClientData = async () =>{
-            setLoading(true);
-            setError(null);
-
             try{
-                const res = await fetch(`http://localhost:3000/api/clients-forms/${id}`);
-                const data = await res.json();
+                const data = await getClientById(id);
                 setClient(data.client || {});
             }
             catch (err) {
-                setError('Failed to fetch client.');
-            } finally {
-                setLoading(false);
+                // Error is handled by useHttp hook
             }
         }
         fetchClientData();
-    },[id]);
+    },[id, getClientById]);
 
   const renderField = (label, value, type = 'text') => {
     if (!value || value === '') return null;
@@ -51,15 +45,11 @@ const ClientDetails = () => {
   };
 
   const handleDeleteClient = async () =>{
-    const res = await fetch(`http://localhost:3000/api/clients-forms/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if(res.ok){
+    try {
+      await deleteClient(id);
       navigate('/admin-dashboard');
+    } catch (err) {
+      // Error is handled by useHttp hook
     }
   }
 

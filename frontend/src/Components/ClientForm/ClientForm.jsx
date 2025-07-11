@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import classes from './ClientForm.module.css';
+import useHttp from '../../hooks/useHttp';
 
 const initialState = {
   fullName: '',
@@ -22,10 +23,9 @@ const initialState = {
 };
 
 const ClientForm = () => {
+  const { createClient, loading, error } = useHttp();
   const [form, setForm] = useState(initialState);
-  const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(null);
-  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,26 +34,13 @@ const ClientForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     setSuccess(null);
-    setError(null);
     try {
-      const response = await fetch('http://localhost:3000/api/clients-forms', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      });
-
-      if (!response.ok){
-        throw new Error('Failed to submit form');
-      } 
-
+      await createClient(form);
       setSuccess('Your information has been submitted successfully!');
       setForm(initialState);
     } catch (err) {
-      setError('There was an error submitting your information. Please try again.');
-    } finally {
-      setLoading(false);
+      // Error is handled by useHttp hook
     }
   };
   
@@ -195,7 +182,7 @@ const ClientForm = () => {
           </div>
 
           {success && <div className={classes.successMsg}>{success}</div>}
-          {error && <div className={classes.errorMsg}>{error}</div>}
+          {error && <div className={classes.errorMsg}>There was an error submitting your information. Please try again.</div>}
 
           <button type="submit" className={classes.submitButton} disabled={loading}>
             {loading ? 'Submitting...' : 'Submit'}

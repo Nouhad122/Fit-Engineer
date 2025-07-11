@@ -6,59 +6,67 @@ import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 import classes from './ReviewsSection.module.css'
 import Button from '../Shared/Button'
-import { authenticatedFetch } from '../../utils/api'
+import useHttp from '../../hooks/useHttp'
 import ModalContext from '../../store/ModalContext'
 import Modal from '../Shared/Modal'
 import AdminContext from '../../store/AdminContext'
-const ReviewsSection = () => {
+const ReviewsSection = ({ reviews: propReviews, loading: propLoading, error: propError }) => {
   const { isAdmin } = useContext(AdminContext);
   const { openModal, openedModal } = useContext(ModalContext);
-  const [reviews, setReviews] = useState([]);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const { getReviews, deleteReview, loading: hookLoading, error: hookError } = useHttp();
+  const [reviews, setReviews] = useState(propReviews || []);
+  
+  // Use props if provided, otherwise use hook state
+  const displayReviews = propReviews || reviews;
+  const displayLoading = propLoading !== undefined ? propLoading : hookLoading;
+  const displayError = propError !== undefined ? propError : hookError;
   useEffect(() =>{
-    const fetchReviews = async () =>{
-      try{
-        const response = await fetch('http://localhost:3000/api/reviews');
-        if(!response.ok){
-        setError('Failed to fetch reviews');          
+    // Only fetch if no props are provided
+    if (!propReviews) {
+      const fetchReviews = async () =>{
+        try{
+          const data = await getReviews();
+          setReviews(data.reviews || []);
         }
-        const data = await response.json();
-        setReviews(data.reviews || []);
-
+        catch(err){
+          // Error is handled by useHttp hook
+        }
       }
-      catch(err){
-        setError('Failed to fetch reviews');
-      }
-      finally{
-        setLoading(false);
-      }
+      
+      fetchReviews();
+      
+      // Listen for reviews updates when not using props
+      const handleReviewsUpdate = () => {
+        fetchReviews();
+      };
+      
+      window.addEventListener('reviewsUpdated', handleReviewsUpdate);
+      
+      return () => {
+        window.removeEventListener('reviewsUpdated', handleReviewsUpdate);
+      };
     }
-    fetchReviews();
-  }, []);
+  }, [getReviews, propReviews]);
 
   const handleDeleteReview = async (id) =>{
     try{
-      const response = await authenticatedFetch(`http://localhost:3000/api/reviews/${id}`, {
-        method: 'DELETE',
-      });
-      if(!response.ok){
-        throw new Error('Failed to delete review');
-      }
-      const reviewsResponse = await fetch('http://localhost:3000/api/reviews');
-      const reviewsData = await reviewsResponse.json();
-      setReviews(reviewsData.reviews || []);
+      await deleteReview(id);
+      // Refresh reviews after deletion
+      const data = await getReviews();
+      setReviews(data.reviews || []);
+      // Trigger reviews refresh across the app
+      window.dispatchEvent(new Event('reviewsUpdated'));
     }
     catch(err){
-      setError(err.message);
+      // Error is handled by useHttp hook
     }
   }
 
-  if(loading){
+  if(displayLoading){
     return <div>Loading...</div>;
   }
-  if(error){
-    return <div>Error: {error}</div>;
+  if(displayError){
+    return <div>Error: {displayError}</div>;
   }
 
   const handleDeleteClick = (id) =>{
@@ -74,7 +82,7 @@ const ReviewsSection = () => {
     <section className={classes.reviewsSection}>
       <div className={classes.container}>
         <h2 className={classes.title}>Client Reviews</h2>
-        {reviews.length === 0 ?
+        {displayReviews.length === 0 ?
          <div className={classes.noReviews}>No reviews found</div>
         :
           <>
@@ -106,7 +114,7 @@ const ReviewsSection = () => {
             }}
             className={classes.swiper}
           >
-            {reviews.map((review) => (
+            {displayReviews.map((review) => (
               <SwiperSlide key={review.id} className={classes.slide}>
                 <div className={classes.reviewCard}>
                   <div className={classes.reviewHeader}>

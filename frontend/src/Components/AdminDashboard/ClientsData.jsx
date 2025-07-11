@@ -3,19 +3,17 @@ import classes from './ClientsData.module.css';
 import Button from '../Shared/Button';
 import Modal from '../Shared/Modal';
 import ModalContext from '../../store/ModalContext.jsx';
+import useHttp from '../../hooks/useHttp';
 const ClientsData = ({clients, loading, error, onClientDeleted}) => {
   const { openModal, openedModal } = useContext(ModalContext);
+  const { deleteClient } = useHttp();
 
   const handleDeleteClient = async (id) =>{
-    const res = await fetch(`http://localhost:3000/api/clients-forms/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if(res.ok){
+    try {
+      await deleteClient(id);
       onClientDeleted();
+    } catch (err) {
+      // Error is handled by useHttp hook
     }
   }
 

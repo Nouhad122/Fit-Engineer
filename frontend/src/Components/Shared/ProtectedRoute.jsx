@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useHttp from '../../hooks/useHttp';
 
 const ProtectedRoute = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+  const { verifyToken } = useHttp();
 
   useEffect(() => {
-    const verifyToken = async () => {
+    const checkToken = async () => {
       const token = localStorage.getItem('adminToken');
       
       if (!token) {
@@ -17,24 +19,10 @@ const ProtectedRoute = ({ children }) => {
       }
 
       try {
-        const response = await fetch('http://localhost:3000/api/auth/verify', {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        });
-
-        if (response.ok) {
-          setIsAuthenticated(true);
-        } else {
-          // Token is invalid or expired
-          localStorage.removeItem('adminToken');
-          localStorage.removeItem('adminUser');
-          navigate('/admin-login');
-        }
+        await verifyToken();
+        setIsAuthenticated(true);
       } catch (error) {
-        console.error('Token verification error:', error);
+        // Token is invalid or expired - handled by useHttp
         localStorage.removeItem('adminToken');
         localStorage.removeItem('adminUser');
         navigate('/admin-login');
@@ -43,8 +31,8 @@ const ProtectedRoute = ({ children }) => {
       }
     };
 
-    verifyToken();
-  }, [navigate]);
+    checkToken();
+  }, [navigate, verifyToken]);
 
   if (isLoading) {
     return (

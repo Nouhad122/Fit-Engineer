@@ -1,0 +1,155 @@
+import { useState, useCallback } from 'react';
+import { authenticatedFetch } from '../utils/api';
+
+const useHttp = () => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  // Generic request function
+  const sendRequest = useCallback(async (url, options = {}) => {
+    setLoading(true);
+    setError(null);
+    
+    try {
+      const response = await fetch(url, {
+        headers: {
+          'Content-Type': 'application/json',
+          ...options.headers
+        },
+        ...options
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (err) {
+      setError(err.message || 'Something went wrong!');
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  // Authenticated request function
+  const sendAuthenticatedRequest = useCallback(async (url, options = {}) => {
+    setLoading(true);
+    setError(null);
+    
+    try {
+      const response = await authenticatedFetch(url, {
+        headers: {
+          'Content-Type': 'application/json',
+          ...options.headers
+        },
+        ...options
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (err) {
+      setError(err.message || 'Something went wrong!');
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  // Client operations
+  const getClients = useCallback(async () => {
+    return await sendAuthenticatedRequest('http://localhost:3000/api/clients-forms');
+  }, [sendAuthenticatedRequest]);
+
+  const getClientById = useCallback(async (id) => {
+    return await sendAuthenticatedRequest(`http://localhost:3000/api/clients-forms/${id}`);
+  }, [sendAuthenticatedRequest]);
+
+  const createClient = useCallback(async (clientData) => {
+    return await sendRequest('http://localhost:3000/api/clients-forms', {
+      method: 'POST',
+      body: JSON.stringify(clientData)
+    });
+  }, [sendRequest]);
+
+  const deleteClient = useCallback(async (id) => {
+    return await sendAuthenticatedRequest(`http://localhost:3000/api/clients-forms/${id}`, {
+      method: 'DELETE'
+    });
+  }, [sendAuthenticatedRequest]);
+
+  // Review operations
+  const getReviews = useCallback(async () => {
+    return await sendRequest('http://localhost:3000/api/reviews');
+  }, [sendRequest]);
+
+  const createReview = useCallback(async (reviewData) => {
+    return await sendRequest('http://localhost:3000/api/reviews', {
+      method: 'POST',
+      body: JSON.stringify(reviewData)
+    });
+  }, [sendRequest]);
+
+  const createReviewAuthenticated = useCallback(async (reviewData) => {
+    return await sendAuthenticatedRequest('http://localhost:3000/api/reviews', {
+      method: 'POST',
+      body: JSON.stringify(reviewData)
+    });
+  }, [sendAuthenticatedRequest]);
+
+  const deleteReview = useCallback(async (id) => {
+    return await sendAuthenticatedRequest(`http://localhost:3000/api/reviews/${id}`, {
+      method: 'DELETE'
+    });
+  }, [sendAuthenticatedRequest]);
+
+  // Authentication operations
+  const login = useCallback(async (credentials) => {
+    return await sendRequest('http://localhost:3000/api/auth/login', {
+      method: 'POST',
+      body: JSON.stringify(credentials)
+    });
+  }, [sendRequest]);
+
+  const verifyToken = useCallback(async () => {
+    return await sendAuthenticatedRequest('http://localhost:3000/api/auth/verify');
+  }, [sendAuthenticatedRequest]);
+
+  // Clear error
+  const clearError = useCallback(() => {
+    setError(null);
+  }, []);
+
+  return {
+    loading,
+    error,
+    clearError,
+    
+    // Generic methods
+    sendRequest,
+    sendAuthenticatedRequest,
+    
+    // Client methods
+    getClients,
+    getClientById,
+    createClient,
+    deleteClient,
+    
+    // Review methods
+    getReviews,
+    createReview,
+    createReviewAuthenticated,
+    deleteReview,
+    
+    // Auth methods
+    login,
+    verifyToken
+  };
+};
+
+export default useHttp; 

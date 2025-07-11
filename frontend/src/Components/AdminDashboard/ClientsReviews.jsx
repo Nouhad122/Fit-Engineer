@@ -2,23 +2,23 @@ import React, { useContext} from 'react'
 import classes from './ClientsReviews.module.css';
 import Modal from '../Shared/Modal';
 import ModalContext from '../../store/ModalContext.jsx';
+import AdminContext from '../../store/AdminContext';
+import useHttp from '../../hooks/useHttp';
 
 const ClientsReviews = ({clients, selectedClient, setSelectedClient, review, setReview, handleReviewSubmit, success}) => {
   const { openedModal, openModal } = useContext(ModalContext);
+  const { refreshReviews } = useContext(AdminContext);
+  const { createReviewAuthenticated } = useHttp();
+  
   const handleCreateReview = async () =>{
-    const res = await fetch(`http://localhost:3000/api/reviews`, {
-      method: 'POST',
-      body: JSON.stringify({clientName: selectedClient.fullName, reviewText: review}),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    if(res.ok){
+    try {
+      await createReviewAuthenticated({clientName: selectedClient.fullName, reviewText: review});
       alert('Review created successfully');
       setReview('');
       setSelectedClient(null);
-    }
-    else{
+      // Trigger reviews refresh across the app
+      refreshReviews();
+    } catch (err) {
       alert('Failed to create review');
     }
   }

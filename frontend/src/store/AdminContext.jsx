@@ -3,7 +3,8 @@ import React, { createContext, useState, useEffect } from 'react'
 const AdminContext = createContext({
     isAdmin: false,
     updateAdminStatus: () => {},
-    logoutAdmin: () => {}
+    logoutAdmin: () => {},
+    refreshReviews: () => {}
 });
 
 export const AdminContextProvider = ({children}) => {
@@ -18,6 +19,10 @@ export const AdminContextProvider = ({children}) => {
         localStorage.removeItem('adminToken');
         localStorage.removeItem('adminUser');
         window.dispatchEvent(new Event('adminStatusChanged'));
+    }
+
+    const refreshReviews = () => {
+        window.dispatchEvent(new Event('reviewsUpdated'));
     }
     
     useEffect(() => {
@@ -36,7 +41,7 @@ export const AdminContextProvider = ({children}) => {
     }, []);
     
     return (
-        <AdminContext.Provider value={{ isAdmin, updateAdminStatus, logoutAdmin }}>
+        <AdminContext.Provider value={{ isAdmin, updateAdminStatus, logoutAdmin, refreshReviews }}>
             {children}
         </AdminContext.Provider>
     )
