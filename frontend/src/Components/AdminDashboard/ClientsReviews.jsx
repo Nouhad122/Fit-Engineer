@@ -13,6 +13,10 @@ const ClientsReviews = ({clients, selectedClient, setSelectedClient, review, set
   
   const handleCreateReview = async () =>{
     try {
+      if(review.length < 10){
+        setMessage({text: 'Review must be at least 10 characters long.', type: 'error'});
+        return;
+      }
       await createReviewAuthenticated({clientName: selectedClient.fullName, reviewText: review});
       setMessage({text: 'Review created successfully!', type: 'success'});
       setReview('');

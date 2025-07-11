@@ -32,9 +32,9 @@ app.use((error, req, res, next) =>{
     res.json({message: error.message || "An unknown error occured!"});
 });
 
-mongoose.connect('mongodb+srv://nouhadalhallab122:PFgnMYCT8Xa5lU2U@mostafa-cluster.26fdouu.mongodb.net/general?retryWrites=true&w=majority&appName=mostafa-cluster')
+mongoose.connect(process.env.MONGODB_URI)
 .then(() => {
-    app.listen(3000);
+    app.listen(process.env.PORT || 3000);
 })
 .catch(err => {
     console.log(err);
