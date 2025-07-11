@@ -20,13 +20,27 @@ const useHttp = () => {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorData = await response.json().catch(() => ({}));
+        
+        // Handle validation errors from express-validator
+        if (response.status === 400 && errorData.errors && Array.isArray(errorData.errors)) {
+          const errorMessage = errorData.errors.join(', ');
+          setError(errorMessage);
+          throw new Error(errorMessage);
+        }
+        
+        // Handle other errors
+        const errorMessage = errorData.message || `HTTP error! status: ${response.status}`;
+        setError(errorMessage);
+        throw new Error(errorMessage);
       }
 
       const data = await response.json();
       return data;
     } catch (err) {
-      setError(err.message || 'Something went wrong!');
+      if (!err.message.includes('HTTP error') && !err.message.includes('Validation failed')) {
+        setError(err.message || 'Something went wrong!');
+      }
       throw err;
     } finally {
       setLoading(false);
@@ -48,13 +62,27 @@ const useHttp = () => {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorData = await response.json().catch(() => ({}));
+        
+        // Handle validation errors from express-validator
+        if (response.status === 400 && errorData.errors && Array.isArray(errorData.errors)) {
+          const errorMessage = errorData.errors.join(', ');
+          setError(errorMessage);
+          throw new Error(errorMessage);
+        }
+        
+        // Handle other errors
+        const errorMessage = errorData.message || `HTTP error! status: ${response.status}`;
+        setError(errorMessage);
+        throw new Error(errorMessage);
       }
 
       const data = await response.json();
       return data;
     } catch (err) {
-      setError(err.message || 'Something went wrong!');
+      if (!err.message.includes('HTTP error') && !err.message.includes('Validation failed')) {
+        setError(err.message || 'Something went wrong!');
+      }
       throw err;
     } finally {
       setLoading(false);

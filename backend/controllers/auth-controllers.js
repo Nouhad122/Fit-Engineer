@@ -5,13 +5,6 @@ const login = async (req, res, next) => {
   const { email, password, meal, workout } = req.body;
 
   try {
-    // Check if all required fields are provided
-    if (!email || !password || !meal || !workout) {
-      return res.status(400).json({ 
-        message: 'All fields are required: email, password, meal, and workout' 
-      });
-    }
-
     // Verify admin credentials from environment variables
     const isEmailValid = email === process.env.ADMIN_EMAIL;
     const isPasswordValid = password === process.env.ADMIN_PASSWORD;

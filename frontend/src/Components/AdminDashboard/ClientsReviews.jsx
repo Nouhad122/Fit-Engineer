@@ -1,4 +1,4 @@
-import React, { useContext} from 'react'
+import React, { useContext, useState } from 'react'
 import classes from './ClientsReviews.module.css';
 import Modal from '../Shared/Modal';
 import ModalContext from '../../store/ModalContext.jsx';
@@ -9,17 +9,17 @@ const ClientsReviews = ({clients, selectedClient, setSelectedClient, review, set
   const { openedModal, openModal } = useContext(ModalContext);
   const { refreshReviews } = useContext(AdminContext);
   const { createReviewAuthenticated } = useHttp();
+  const [message, setMessage] = useState({text: '', type: ''});
   
   const handleCreateReview = async () =>{
     try {
       await createReviewAuthenticated({clientName: selectedClient.fullName, reviewText: review});
-      alert('Review created successfully');
+      setMessage({text: 'Review created successfully!', type: 'success'});
       setReview('');
       setSelectedClient(null);
-      // Trigger reviews refresh across the app
       refreshReviews();
     } catch (err) {
-      alert('Failed to create review');
+      setMessage({text: 'Failed to create review. Please try again.', type: 'error'});
     }
   }
   return (
@@ -57,7 +57,7 @@ const ClientsReviews = ({clients, selectedClient, setSelectedClient, review, set
             Submit Review
           </button>
         </form>
-        {success && <p className={classes.success}>{success}</p>}
+        {message.text && <p className={`${classes.message} ${classes[message.type]}`}>{message.text}</p>}
       </section>
       {
         openedModal && <Modal />
