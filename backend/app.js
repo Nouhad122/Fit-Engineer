@@ -1,6 +1,5 @@
 const path = require('path');
 const express = require('express');
-const dotenv = require('dotenv');
 const clientsRoutes = require('./routes/clients-routes');
 const reviewsRoutes = require('./routes/reviews-routes');
 const authRoutes = require('./routes/auth-routes');
@@ -8,12 +7,12 @@ const HttpError = require('./models/http-error');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-dotenv.config();
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
 
 const app = express();
 
-// // Get the current directory path
-// const currentDir = process.cwd();
 
 app.use(cors({
     origin: 'http://localhost:5173',
@@ -38,7 +37,7 @@ app.use((error, req, res, next) =>{
 
 
 // Production static file serving
-if(process.env.NODE_ENV === 'production'){
+if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '/frontend/dist')));
 
     app.get('*', (req, res) => {
