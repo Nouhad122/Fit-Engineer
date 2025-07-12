@@ -1,15 +1,6 @@
 const path = require('path');
-
-// Load environment variables (only needed for local development)
-if (process.env.NODE_ENV !== 'production') {
-  try {
-    require('dotenv').config();
-  } catch (error) {
-    console.warn('dotenv not available:', error.message);
-  }
-}
-
 const express = require('express');
+const dotenv = require('dotenv');
 const clientsRoutes = require('./routes/clients-routes');
 const reviewsRoutes = require('./routes/reviews-routes');
 const authRoutes = require('./routes/auth-routes');
@@ -17,10 +8,12 @@ const HttpError = require('./models/http-error');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
+dotenv.config();
+
 const app = express();
 
-// Get the current directory path
-const currentDir = process.cwd();
+// // Get the current directory path
+// const currentDir = process.cwd();
 
 app.use(cors({
     origin: 'http://localhost:5173',
@@ -34,16 +27,6 @@ app.use('/api/auth', authRoutes);
 app.use('/api/clients-forms', clientsRoutes);
 app.use('/api/reviews', reviewsRoutes);
 
-
-// Production static file serving
-if(process.env.NODE_ENV === 'production'){
-    app.use(express.static(path.join(currentDir, '/frontend/dist')));
-
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(currentDir, 'frontend', 'dist', 'index.html'));
-    });
-}
-
 // Error handling middleware
 app.use((error, req, res, next) =>{
     if(res.headerSent){
@@ -52,6 +35,16 @@ app.use((error, req, res, next) =>{
     res.status(error.code || 500);
     res.json({message: error.message || "An unknown error occured!"});
 });
+
+
+// Production static file serving
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static(path.join(__dirname, '/frontend/dist')));
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'));
+    });
+}
 
 mongoose.connect(process.env.MONGODB_URI)
 .then(() => {
