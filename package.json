@@ -4,10 +4,9 @@
   "description": "Full-stack fitness training application",
   "main": "backend/app.js",
   "scripts": {
-    "start": "node backend/app.js",
-    "dev": "nodemon backend/app.js",
-    "prod": "NODE_ENV=production node backend/app.js",
-    "build": "cd frontend && npm install && npm run build"
+    "start": "NODE_ENV=production node backend/app.js",
+    "dev": "NODE_ENV=development nodemon backend/app.js",
+    "build": "cd frontend && npm install --include=dev && npm run build"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",
