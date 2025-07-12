@@ -26,6 +26,17 @@ app.use('/api/auth', authRoutes);
 app.use('/api/clients-forms', clientsRoutes);
 app.use('/api/reviews', reviewsRoutes);
 
+// Production static file serving
+if (process.env.NODE_ENV === 'production') {
+    // Since we're running from root, go up one level from backend to find frontend/dist
+    const frontendDistPath = path.join(__dirname, '..', 'frontend', 'dist');
+    app.use(express.static(frontendDistPath));
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(frontendDistPath, 'index.html'));
+    });
+}
+
 // Error handling middleware
 app.use((error, req, res, next) =>{
     if(res.headerSent){
@@ -34,16 +45,6 @@ app.use((error, req, res, next) =>{
     res.status(error.code || 500);
     res.json({message: error.message || "An unknown error occured!"});
 });
-
-
-// Production static file serving
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, '/frontend/dist')));
-
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'));
-    });
-}
 
 mongoose.connect(process.env.MONGODB_URI)
 .then(() => {
