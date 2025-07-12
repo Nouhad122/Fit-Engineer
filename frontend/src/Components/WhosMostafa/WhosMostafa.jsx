@@ -1,5 +1,6 @@
 import React from 'react'
 import classes from './WhosMostafa.module.css'
+import mostafaImg from '../../assets/mostafa-2.jpeg'
 
 const WhosMostafa = () => {
   return (
@@ -8,7 +9,7 @@ const WhosMostafa = () => {
       <div className={classes.container}>
         <div className={classes.imageSection}>
           <img 
-            src="/src/assets/mostafa-2.jpeg" 
+            src={mostafaImg} 
             alt="Mostafa - Professional Gym Coach" 
             className={classes.coachImage}
           />
