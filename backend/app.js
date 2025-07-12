@@ -17,9 +17,10 @@ const app = express();
 
 // CORS configuration for production
 const corsOptions = {
-  origin: process.env.NODE_ENV === 'production' 
-    ? process.env.FRONTEND_URL || 'https://your-vercel-app.vercel.app'
-    : 'http://localhost:5173',
+  origin: [
+    'https://fit-engineer.vercel.app',
+    'http://localhost:5173' // Keep for local development
+  ],
   credentials: true,
   optionsSuccessStatus: 200
 };
@@ -32,6 +33,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/clients-forms', clientsRoutes);
 app.use('/api/reviews', reviewsRoutes);
 
+// Health check endpoint
 app.get('/api/health', (req, res) => {
   res.status(200).json({ message: 'Backend is running!' });
 });
@@ -45,6 +47,7 @@ app.use((error, req, res, next) => {
   res.json({ message: error.message || "An unknown error occurred!" });
 });
 
+// Connect to MongoDB and start server
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => {
     const PORT = process.env.PORT || 3000;
