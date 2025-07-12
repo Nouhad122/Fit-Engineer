@@ -6,4 +6,5 @@ import path from 'path'
 export default defineConfig({
   plugins: [react()],
   envDir: '../', // Read .env from parent directory (root)
+  base: '/Fit-Engineer',
 })
