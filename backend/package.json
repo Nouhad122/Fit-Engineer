@@ -2,12 +2,10 @@
   "name": "train-with-mostafa",
   "version": "1.0.0",
   "description": "Full-stack fitness training application",
-  "main": "backend/app.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node backend/app.js",
-    "dev": "nodemon backend/app.js",
-    "build": "npm install --prefix frontend && npm run build --prefix frontend",
-    "prod": "NODE_ENV=production node backend/app.js"
+    "start": "nodemon app.js",
+    "build": "npm build"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",
