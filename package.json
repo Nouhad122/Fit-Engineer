@@ -13,6 +13,7 @@
     "bcryptjs": "^3.0.2",
     "body-parser": "^2.2.0",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "dotenv": "^17.1.0",
     "express": "^5.1.0",
     "express-validator": "^7.2.1",
@@ -23,7 +24,6 @@
     "uuid": "^11.1.0"
   },
   "devDependencies": {
-    "cross-env": "^7.0.3",
     "nodemon": "^3.1.10"
   },
   "engines": {
