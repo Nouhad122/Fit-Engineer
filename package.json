@@ -1,5 +1,31 @@
 {
+  "name": "train-with-mostafa",
+  "version": "1.0.0",
+  "description": "Full-stack fitness training application",
+  "main": "backend/app.js",
+  "scripts": {
+    "start": "node backend/app.js",
+    "dev": "nodemon backend/app.js",
+    "prod": "NODE_ENV=production node backend/app.js",
+    "build": "npm install && cd frontend && npm install && npm run build"
+  },
   "dependencies": {
-    "react-icons": "^5.5.0"
+    "bcryptjs": "^3.0.2",
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.1.0",
+    "express": "^5.1.0",
+    "express-validator": "^7.2.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.17.0",
+    "mongoose": "^8.16.0",
+    "node-fetch": "^3.3.2",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
