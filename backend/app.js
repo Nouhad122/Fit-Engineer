@@ -1,4 +1,14 @@
-require('dotenv').config();
+const path = require('path');
+
+// Load environment variables (only needed for local development)
+if (process.env.NODE_ENV !== 'production') {
+  try {
+    require('dotenv').config();
+  } catch (error) {
+    console.warn('dotenv not available:', error.message);
+  }
+}
+
 const express = require('express');
 const clientsRoutes = require('./routes/clients-routes');
 const reviewsRoutes = require('./routes/reviews-routes');
@@ -6,7 +16,6 @@ const authRoutes = require('./routes/auth-routes');
 const HttpError = require('./models/http-error');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const path = require('path');
 
 const app = express();
 
