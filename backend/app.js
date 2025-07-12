@@ -20,23 +20,13 @@ app.use(cors({
 
 app.use(express.json());
 
+// API routes
 app.use('/api/auth', authRoutes);
 app.use('/api/clients-forms', clientsRoutes);
 app.use('/api/reviews', reviewsRoutes);
 
-app.use((req, res, next) =>{
-    const error = new HttpError('Could not find this route.', 404);
-    throw error;
-});
 
-app.use((error, req, res, next) =>{
-    if(res.headerSent){
-        return next(error);
-    }
-    res.status(error.code || 500);
-    res.json({message: error.message || "An unknown error occured!"});
-});
-
+// Production static file serving
 if(process.env.NODE_ENV === 'production'){
     app.use(express.static(path.join(currentDir, '/frontend/dist')));
 
@@ -44,6 +34,15 @@ if(process.env.NODE_ENV === 'production'){
         res.sendFile(path.resolve(currentDir, 'frontend', 'dist', 'index.html'));
     });
 }
+
+// Error handling middleware
+app.use((error, req, res, next) =>{
+    if(res.headerSent){
+        return next(error);
+    }
+    res.status(error.code || 500);
+    res.json({message: error.message || "An unknown error occured!"});
+});
 
 mongoose.connect(process.env.MONGODB_URI)
 .then(() => {
