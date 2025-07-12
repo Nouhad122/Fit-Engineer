@@ -1,11 +1,11 @@
 {
-  "name": "train-with-mostafa",
+  "name": "fit-engineer-backend",
   "version": "1.0.0",
-  "description": "Full-stack fitness training application",
+  "description": "Backend API for fitness training application",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js",
-    "build": "npm build"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",
@@ -21,7 +21,6 @@
     "uuid": "^11.1.0"
   },
   "devDependencies": {
-    "cross-env": "^7.0.3",
     "nodemon": "^3.1.10"
   },
   "engines": {
