@@ -7,7 +7,7 @@
     "start": "node backend/app.js",
     "dev": "nodemon backend/app.js",
     "prod": "NODE_ENV=production node backend/app.js",
-    "build": "npm install && cd frontend && npm install && npm run build"
+    "build": "cd frontend && npm install && npm run build"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",
