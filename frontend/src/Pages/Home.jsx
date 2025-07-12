@@ -11,7 +11,6 @@ import useHttp from '../hooks/useHttp'
 const Home = () => {
   const { getReviews, loading, error } = useHttp();
   const [reviews, setReviews] = useState([]);
-  console.log(import.meta.env.VITE_API_URL);
 
   useEffect(() => {
     const fetchReviews = async () => {
