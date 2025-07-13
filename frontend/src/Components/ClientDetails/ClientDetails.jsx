@@ -6,6 +6,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import ModalContext from '../../store/ModalContext.jsx';
 import Modal from '../Shared/Modal';
 import useHttp from '../../hooks/useHttp';
+import Loading from '../Shared/Loading';
 
 const ClientDetails = () => {
     const { openModal, openedModal } = useContext(ModalContext);
@@ -65,7 +66,7 @@ const ClientDetails = () => {
     <>
     <div className={classes.clientDetailsContainer}>
         {loading ? 
-            <p>Loading Client Data...</p>
+            <Loading message="Loading Client Data..." />
         :
         <>
         <ClientHeader client={client}/>

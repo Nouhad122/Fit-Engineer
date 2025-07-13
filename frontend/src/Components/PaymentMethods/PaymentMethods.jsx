@@ -23,6 +23,10 @@ const PaymentMethods = () => {
                 <FaCreditCard className={classes.paymentIcon} />
                 <span>Bank Transfer</span>
             </div>
+            <div className={classes.paymentMethod}>
+                <FaCreditCard className={classes.paymentIcon} />
+                <span>Wish Money</span>
+            </div>
         </div>
     </section>
   )

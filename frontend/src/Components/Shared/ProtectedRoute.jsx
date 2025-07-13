@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useHttp from '../../hooks/useHttp';
+import Loading from './Loading';
 
 const ProtectedRoute = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -35,17 +36,7 @@ const ProtectedRoute = ({ children }) => {
   }, [navigate, verifyToken]);
 
   if (isLoading) {
-    return (
-      <div style={{ 
-        display: 'flex', 
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        height: '100vh',
-        fontSize: '18px'
-      }}>
-        Verifying authentication...
-      </div>
-    );
+    return <Loading message="Verifying authentication..." />;
   }
 
   return isAuthenticated ? children : null;

@@ -10,6 +10,7 @@ import useHttp from '../../hooks/useHttp'
 import ModalContext from '../../store/ModalContext'
 import Modal from '../Shared/Modal'
 import AdminContext from '../../store/AdminContext'
+import Loading from '../Shared/Loading'
 const ReviewsSection = ({ reviews: propReviews, loading: propLoading, error: propError }) => {
   const { isAdmin } = useContext(AdminContext);
   const { openModal, openedModal } = useContext(ModalContext);
@@ -62,13 +63,6 @@ const ReviewsSection = ({ reviews: propReviews, loading: propLoading, error: pro
     }
   }
 
-  if(displayLoading){
-    return <div>Loading...</div>;
-  }
-  if(displayError){
-    return <div>Error: {displayError}</div>;
-  }
-
   const handleDeleteClick = (id) =>{
     openModal({
       title: "Are you sure?",
@@ -82,12 +76,16 @@ const ReviewsSection = ({ reviews: propReviews, loading: propLoading, error: pro
     <section className={classes.reviewsSection}>
       <div className={classes.container}>
         <h2 className={classes.title}>Client Reviews</h2>
-        {displayReviews.length === 0 ?
-         <div className={classes.noReviews}>No reviews found</div>
-        :
+        {displayLoading ? <Loading message="Loading reviews..." /> :
+        displayError ? <div className={classes.error}>Error: {displayError}</div> :
+        displayReviews.length === 0 ? <div className={classes.noReviews}>No reviews found</div> :
+        <>
+          <p className={classes.subtitle}>What my clients say about their transformation journey</p>
+        </>
+        }
+        {displayReviews.length > 0 && !displayLoading && !displayError && (
           <>
-             <p className={classes.subtitle}>What my clients say about their transformation journey</p>
-        
+            <p className={classes.subtitle}>What my clients say about their transformation journey</p>
           <Swiper
             modules={[Pagination, Autoplay, Navigation]}
             spaceBetween={30}
@@ -134,8 +132,7 @@ const ReviewsSection = ({ reviews: propReviews, loading: propLoading, error: pro
             ))}
           </Swiper>
           </>
-          
-        }
+        )}
       </div>
     </section>
     {

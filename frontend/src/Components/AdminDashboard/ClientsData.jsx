@@ -4,6 +4,7 @@ import Button from '../Shared/Button';
 import Modal from '../Shared/Modal';
 import ModalContext from '../../store/ModalContext.jsx';
 import useHttp from '../../hooks/useHttp';
+import Loading from '../Shared/Loading';
 const ClientsData = ({clients, loading, error, onClientDeleted}) => {
   const { openModal, openedModal } = useContext(ModalContext);
   const { deleteClient } = useHttp();
@@ -28,7 +29,7 @@ const ClientsData = ({clients, loading, error, onClientDeleted}) => {
     <>
     <section className={classes.clientsSection}>
         <h2>Clients</h2>
-        {loading && <p>Loading clients...</p>}
+        {loading && <Loading message="Loading clients..." />}
         {error && <p className={classes.error}>{error}</p>}
         <ul className={classes.clientsList}>
           {
