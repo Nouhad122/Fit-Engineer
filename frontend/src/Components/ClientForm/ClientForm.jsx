@@ -37,8 +37,11 @@ const ClientForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 100);
     setSuccess(null);
-    setErrors({}); // Clear previous errors
+    setErrors({});
     
     // Validate form
     const validation = validateClientForm(form);
@@ -284,9 +287,6 @@ const ClientForm = () => {
            onChange={handleChange} 
            isTextArea 
            rows={2} />
-
-          {success && <div className={classes.successMsg}>{success}</div>}
-          {error && <div className={classes.errorMsg}>There was an error submitting your information. Please try again.</div>}
 
           <button type="submit" className={classes.submitButton} disabled={loading}>
             {loading ? 'Submitting...' : 'Submit'}
