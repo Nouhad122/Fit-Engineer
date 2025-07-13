@@ -7,6 +7,7 @@ import AdminDashboardPage from './Pages/AdminDashboardPage'
 import DetailsPage from './Pages/DetailsPage'
 import AdminLogin from './Pages/AdminLogin'
 import ProtectedRoute from './Components/Shared/ProtectedRoute'
+import NotFound from './Components/NotFound/NotFound'
 
 function App() {
   const router = createBrowserRouter([
@@ -28,11 +29,15 @@ function App() {
         },
         {
           path: '/client-details/:id',
-          element: <DetailsPage />
+          element: <ProtectedRoute><DetailsPage /></ProtectedRoute>
         },
         {
           path: import.meta.env.VITE_LOGIN_URL,
           element: <AdminLogin />
+        },
+        {
+          path: '*',
+          element: <NotFound />
         }
       ]
     }

@@ -14,7 +14,7 @@ const ProtectedRoute = ({ children }) => {
       
       if (!token) {
         setIsLoading(false);
-        navigate('/admin-login');
+        navigate('*');
         return;
       }
 
@@ -25,7 +25,7 @@ const ProtectedRoute = ({ children }) => {
         // Token is invalid or expired - handled by useHttp
         localStorage.removeItem('adminToken');
         localStorage.removeItem('adminUser');
-        navigate('/admin-login');
+        navigate('*');
       } finally {
         setIsLoading(false);
       }
