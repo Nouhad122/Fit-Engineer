@@ -31,7 +31,7 @@ function App() {
           element: <DetailsPage />
         },
         {
-          path: '/admin-login',
+          path: import.meta.env.VITE_LOGIN_URL,
           element: <AdminLogin />
         }
       ]
