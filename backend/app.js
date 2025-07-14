@@ -33,11 +33,6 @@ app.use('/api/auth', authRoutes);
 app.use('/api/clients-forms', clientsRoutes);
 app.use('/api/reviews', reviewsRoutes);
 
-// Health check endpoint
-app.get('/api/health', (req, res) => {
-  res.status(200).json({ message: 'Backend is running!' });
-});
-
 // Error handling middleware
 app.use((error, req, res, next) => {
   if (res.headerSent) {

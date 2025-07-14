@@ -11,7 +11,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  // Prevent body scrolling when menu is open
+ 
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = 'hidden';
@@ -19,7 +19,6 @@ const Navbar = () => {
       document.body.style.overflow = 'unset';
     }
 
-    // Cleanup function to restore scrolling when component unmounts
     return () => {
       document.body.style.overflow = 'unset';
     };
@@ -35,8 +34,9 @@ const Navbar = () => {
 
   const handleLogout = () =>{
     logoutAdmin();
-    navigate('/admin-login');
+    navigate('/');
   }
+
   return (
     <>
       {/* Backdrop overlay for mobile menu */}
@@ -52,7 +52,7 @@ const Navbar = () => {
           </div>
 
           {
-            location.pathname !== '/admin-login' && (
+            location.pathname !== import.meta.env.VITE_LOGIN_URL && (
               <>
               {/* Mobile Menu Button */}
               <button 

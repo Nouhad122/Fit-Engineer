@@ -41,7 +41,7 @@ const AdminDashboard = () => {
     localStorage.removeItem('adminUser');
     // Dispatch custom event to notify AdminContext
     window.dispatchEvent(new Event('adminStatusChanged'));
-    navigate('/admin-login');
+    navigate('/');
   };
 
   return (
