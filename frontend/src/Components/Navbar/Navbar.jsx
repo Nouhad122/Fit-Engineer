@@ -52,7 +52,7 @@ const Navbar = () => {
           </div>
 
           {
-            location.pathname !== import.meta.env.VITE_LOGIN_URL && (
+            location.pathname !== import.meta.env.VITE_LOGIN_URL && location.pathname !== '/client-form' &&(
               <>
               {/* Mobile Menu Button */}
               <button 
