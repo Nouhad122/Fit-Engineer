@@ -18,7 +18,7 @@ const app = express();
 // CORS configuration for production
 const corsOptions = {
   origin: [
-    'https://fit-engineer.vercel.app',
+    'https://www.fit-engineer.net',
     'http://localhost:5173' // Keep for local development
   ],
   credentials: true,
