@@ -80,59 +80,55 @@ const ReviewsSection = ({ reviews: propReviews, loading: propLoading, error: pro
         displayError ? <div className={classes.error}>Error: {displayError}</div> :
         displayReviews.length === 0 ? <div className={classes.noReviews}>No reviews found</div> :
         <>
-          <p className={classes.subtitle}>What my clients say about their transformation journey</p>
-        </>
-        }
-        {displayReviews.length > 0 && !displayLoading && !displayError && (
-          <>
-            <p className={classes.subtitle}>What my clients say about their transformation journey</p>
-          <Swiper
-            modules={[Pagination, Autoplay, Navigation]}
-            spaceBetween={30}
-            slidesPerView={1}
-            pagination={{ 
-              clickable: true,
-              dynamicBullets: true
-            }}
-            navigation={true}
-            autoplay={{
-              delay: 5000,
-              disableOnInteraction: false,
-            }}
-            loop={true}
-            breakpoints={{
-              768: {
-                slidesPerView: 2,
-                spaceBetween: 30,
-              },
-              1024: {
-                slidesPerView: 3,
-                spaceBetween: 40,
-              },
-            }}
-            className={classes.swiper}
-          >
-            {displayReviews.map((review) => (
-              <SwiperSlide key={review.id} className={classes.slide}>
-                <div className={classes.reviewCard}>
-                  <div className={classes.reviewHeader}>
-                    <div className={classes.avatar}>
-                      {review.clientName.charAt(0)}
-                    </div>
-                    <h3 className={classes.clientName}>{review.clientName}</h3>
+        <p className={classes.subtitle}>What my clients say about their transformation journey</p>
+        <Swiper
+          modules={[Pagination, Autoplay, Navigation]}
+          spaceBetween={30}
+          slidesPerView={1}
+          pagination={{ 
+            clickable: true,
+            dynamicBullets: true
+          }}
+          navigation={true}
+          autoplay={{
+            delay: 5000,
+            disableOnInteraction: false,
+          }}
+          loop={true}
+          breakpoints={{
+            768: {
+              slidesPerView: 2,
+              spaceBetween: 30,
+            },
+            1024: {
+              slidesPerView: 3,
+              spaceBetween: 40,
+            },
+          }}
+          className={classes.swiper}
+        >
+          {displayReviews.map((review) => (
+            <SwiperSlide key={review.id} className={classes.slide}>
+              <div className={classes.reviewCard}>
+                <div className={classes.reviewHeader}>
+                  <div className={classes.avatar}>
+                    {review.clientName.charAt(0)}
                   </div>
-                  <div className={classes.reviewContent}>
-                    <p className={classes.reviewText}>"{review.reviewText}"</p>
-                  </div>
-                  {isAdmin && (
-                    <Button onClick={() => handleDeleteClick(review.id)} redBtn>Delete</Button>
-                  )}
+                  <h3 className={classes.clientName}>{review.clientName}</h3>
                 </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-          </>
-        )}
+                <div className={classes.reviewContent}>
+                  <p className={classes.reviewText}>"{review.reviewText}"</p>
+                </div>
+                {isAdmin && (
+                  <Button onClick={() => handleDeleteClick(review.id)} redBtn>Delete</Button>
+                )}
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        </>
+      }
+          
       </div>
     </section>
     {

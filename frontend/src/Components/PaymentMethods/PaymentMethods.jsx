@@ -1,6 +1,7 @@
 import React from 'react'
 import classes from './PaymentMethods.module.css'
 import { FaPaypal, FaCreditCard, FaBitcoin } from 'react-icons/fa';
+import { TbSquareLetterW } from "react-icons/tb";
 import Title from '../Shared/Title';
 const PaymentMethods = () => {
   return (
@@ -24,7 +25,7 @@ const PaymentMethods = () => {
                 <span>Bank Transfer</span>
             </div>
             <div className={classes.paymentMethod}>
-                <FaCreditCard className={classes.paymentIcon} />
+                <TbSquareLetterW className={classes.paymentIcon} />
                 <span>Wish Money</span>
             </div>
         </div>

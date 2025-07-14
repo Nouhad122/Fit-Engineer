@@ -9,7 +9,6 @@ import AdminContext from '../../store/AdminContext';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
-  const { updateAdminStatus } = useContext(AdminContext);
   const { getClients, loading, error } = useHttp();
   const [clients, setClients] = useState([]);
   const [selectedClient, setSelectedClient] = useState(null);
