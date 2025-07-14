@@ -14,12 +14,6 @@ const Pricing = () => {
           description='Choose one plan: Workout Plan, Diet Plan, or Steroid Plan'
         />
         <PackageCard 
-          pack='2 Plans' 
-          price='$70' 
-          popular
-          description='Choose any 2 plans you want'
-        />
-        <PackageCard 
           pack='3 Plans' 
           price='$130' 
           originalPrice='$150'
@@ -36,6 +30,7 @@ const Pricing = () => {
             'One-time payment',
             'Regular check-ins'
           ]}
+          popular
         />
         <PackageCard 
           pack='Full Package 2' 
