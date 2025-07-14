@@ -17,7 +17,7 @@ const Footer = () => {
                 </a>
             </div>
             <div className={classes.creator}>
-                <h1>Created by <a href="https://wa.me/+905344421873" target='_blank' rel='noopener noreferrer'>Nouhad El Hallab</a></h1>
+                <h1>Created by <a href="https://nouhad-portfolio.vercel.app/" target='_blank' rel='noopener noreferrer'>Nouhad El Hallab</a></h1>
             </div>
         </div>
     </footer>
