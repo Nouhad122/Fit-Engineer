@@ -1,7 +1,7 @@
 const HttpError = require('../models/http-error');
 const Transformation = require('../models/transformation');
 
-exports.getTransformation = async (req, res, next) => {
+exports.getTransformations = async (req, res, next) => {
     try {
         const transformations = await Transformation.find().sort({_id: -1});
         res.status(200).json({
@@ -9,13 +9,13 @@ exports.getTransformation = async (req, res, next) => {
             count: transformations.length,
             transformations: transformations.map(transformation =>
                 transformation.toObject({getters: true}))
-        })
+        });
     } catch(err) {
         console.error('Get transformations error:', err);
         const error = new HttpError('Something went wrong, could not find transformations.', 500);
         return next(error);
     }
-}
+};
 
 exports.createTransformation = async (req, res, next) => {
     try {
@@ -31,7 +31,7 @@ exports.createTransformation = async (req, res, next) => {
             clientName: clientName.trim(),
             transformationText: transformationText.trim(),
             transformationImages: transformationImages.map(image => image.trim())
-        })
+        });
 
         const savedTransformation = await createdTransformation.save();
 
@@ -39,14 +39,13 @@ exports.createTransformation = async (req, res, next) => {
             success: true,
             message: 'Transformation created successfully',
             transformation: savedTransformation.toObject({getters: true})
-        })
+        });
     } catch(err) {
         console.error('Create transformation error:', err);
         const error = new HttpError('Something went wrong, could not create transformation.', 500);
         return next(error);
     }
-
-}
+};
 
 exports.deleteTransformation = async (req, res, next) => {
     const transformationId = req.params.tid;
@@ -68,10 +67,10 @@ exports.deleteTransformation = async (req, res, next) => {
             success: true,
             message: 'Transformation deleted successfully.',
             deletedTransformation: deletedTransformation.toObject({getters: true})
-        })
+        });
     } catch(err) {
         console.error('Delete transformation error:', err);
         const error = new HttpError('Something went wrong, could not delete transformation.', 500);
         return next(error);
     }
-}
+};
