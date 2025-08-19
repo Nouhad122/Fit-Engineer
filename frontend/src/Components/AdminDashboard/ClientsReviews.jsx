@@ -1,23 +1,32 @@
 import React, { useContext, useState } from 'react'
-import classes from './ClientsReviews.module.css';
+import classes from './Clients.module.css';
 import Modal from '../Shared/Modal';
 import ModalContext from '../../store/ModalContext.jsx';
 import AdminContext from '../../store/AdminContext';
 import useHttp from '../../hooks/useHttp';
+import SelectableClients from './SelectableClients.jsx';
 
-const ClientsReviews = ({clients, selectedClient, setSelectedClient, review, setReview, handleReviewSubmit, success}) => {
+const ClientsReviews = ({clients, selectedClient, setSelectedClient}) => {
   const { openedModal, openModal } = useContext(ModalContext);
   const { refreshReviews } = useContext(AdminContext);
   const { createReviewAuthenticated } = useHttp();
+  const [review, setReview] = useState('');
   const [message, setMessage] = useState({text: '', type: ''});
+
+  const handleReviewSubmit = (e) => {
+    e.preventDefault();
+  };
   
   const handleCreateReview = async () =>{
     try {
-      if(review.length < 10){
+      if(review.length < 10){ 
         setMessage({text: 'Review must be at least 10 characters long.', type: 'error'});
         return;
       }
-      await createReviewAuthenticated({clientName: selectedClient.fullName, reviewText: review});
+      await createReviewAuthenticated({
+        clientName: selectedClient.fullName, 
+        reviewText: review,
+      });
       setMessage({text: 'Review created successfully!', type: 'success'});
       setReview('');
       setSelectedClient(null);
@@ -28,24 +37,15 @@ const ClientsReviews = ({clients, selectedClient, setSelectedClient, review, set
   }
   return (
     <>
-    <section className={classes.reviewSection}>
+    <section className={classes.adminSection}>
         <h2>Write a Review</h2>
-        <form onSubmit={handleReviewSubmit} className={classes.reviewForm}>
-          <select
-            value={selectedClient ? selectedClient.id : ''}
-            onChange={e => {
-              const client = clients.find(client => client.id === e.target.value);
-              setSelectedClient(client);
-            }}
-            required
-          >
-            <option value="">Select a client</option>
-            {clients.map(client => (
-              <option key={client.id} value={client.id}>
-                {client.fullName}
-              </option>
-            ))}
-          </select>
+        <form onSubmit={handleReviewSubmit} className={classes.adminForm}>
+          <SelectableClients 
+            clients={clients}
+            selectedClient={selectedClient}
+            setSelectedClient={setSelectedClient}
+          />
+
           <textarea
             placeholder="Write your review here..."
             value={review}
@@ -53,7 +53,11 @@ const ClientsReviews = ({clients, selectedClient, setSelectedClient, review, set
             rows={3}
             required
           />
-          <button type="button" disabled={!selectedClient || !review.trim()} onClick={() => openModal({
+
+          <button type="button"
+           className={classes.submitBtn}
+           disabled={!selectedClient || !review.trim()}
+           onClick={() => openModal({
             title: "Submit Review",
             message: `Are you sure you want to submit a review for ${selectedClient?.fullName}?`,
             onConfirm: handleCreateReview
@@ -61,6 +65,7 @@ const ClientsReviews = ({clients, selectedClient, setSelectedClient, review, set
             Submit Review
           </button>
         </form>
+
         {message.text && <p className={`${classes.message} ${classes[message.type]}`}>{message.text}</p>}
       </section>
       {

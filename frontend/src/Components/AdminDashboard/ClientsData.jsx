@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import classes from './ClientsData.module.css';
+import classes from './Clients.module.css';
 import Button from '../Shared/Button';
 import Modal from '../Shared/Modal';
 import ModalContext from '../../store/ModalContext.jsx';
@@ -29,7 +29,7 @@ const ClientsData = ({clients, loading, error, onClientDeleted}) => {
 
   return (
     <>
-      <section className={classes.clientsSection}>
+      <section className={classes.adminSection}>
         <h2>Clients</h2>
         {loading ? (
           <Loading message="Loading clients..." />
@@ -43,8 +43,20 @@ const ClientsData = ({clients, loading, error, onClientDeleted}) => {
                   {client.fullName} ({client.email})
                 </p>
                 <div className={classes.listActions}>
-                  <Button path={`/client-details/${client.id}`} className={classes.viewButton} isLink>View</Button>
-                  <Button className={classes.deleteButton} onClick={() => handleDeleteClick(client.id)} redBtn>Delete</Button>
+                  <Button 
+                   path={`/client-details/${client.id}`} 
+                   className={classes.viewButton} 
+                   isLink
+                   >
+                    View
+                  </Button>
+                  <Button 
+                   className={classes.deleteButton} 
+                   onClick={() => handleDeleteClick(client.id)} 
+                   redBtn
+                   >
+                    Delete
+                  </Button>
                 </div>
               </li>
             ))}

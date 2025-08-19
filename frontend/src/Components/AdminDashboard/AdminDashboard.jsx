@@ -6,14 +6,13 @@ import ClientsReviews from './ClientsReviews';
 import Button from '../Shared/Button';
 import useHttp from '../../hooks/useHttp';
 import AdminContext from '../../store/AdminContext';
+import ClientsTransformation from './ClientsTransformation';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const { getClients, loading, error } = useHttp();
   const [clients, setClients] = useState([]);
   const [selectedClient, setSelectedClient] = useState(null);
-  const [review, setReview] = useState('');
-  const [success, setSuccess] = useState(null);
 
     const fetchClients = async () => {
       try {
@@ -28,18 +27,9 @@ const AdminDashboard = () => {
       fetchClients();
     }, []);
 
-  const handleReviewSubmit = (e) => {
-    e.preventDefault();
-    if (!selectedClient || !review.trim()) return;
-    setSuccess(`Review for ${selectedClient.fullName} submitted!`);
-    setReview('');
-    setTimeout(() => setSuccess(null), 2000);
-  };
-
   const handleLogout = () => {
     localStorage.removeItem('adminToken');
     localStorage.removeItem('adminUser');
-    // Dispatch custom event to notify AdminContext
     window.dispatchEvent(new Event('adminStatusChanged'));
     navigate('/');
   };
@@ -65,10 +55,12 @@ const AdminDashboard = () => {
           clients={clients}
           selectedClient={selectedClient}
           setSelectedClient={setSelectedClient}
-          review={review}
-          setReview={setReview}
-          success={success}
-          handleReviewSubmit={handleReviewSubmit}
+        />
+
+        <ClientsTransformation 
+          clients={clients}
+          selectedClient={selectedClient}
+          setSelectedClient={setSelectedClient}
         />
       </div>
     </div>

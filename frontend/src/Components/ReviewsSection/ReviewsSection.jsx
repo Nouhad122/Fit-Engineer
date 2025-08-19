@@ -117,6 +117,17 @@ const ReviewsSection = ({ reviews: propReviews, loading: propLoading, error: pro
                   <h3 className={classes.clientName}>{review.clientName}</h3>
                 </div>
                 <div className={classes.reviewContent}>
+                  {review.reviewImage && (
+                    <div className={classes.reviewImage}>
+                      <img 
+                        src={`http://localhost:3000${review.reviewImage}`} 
+                        alt={`${review.clientName}'s transformation`}
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                        }}
+                      />
+                    </div>
+                  )}
                   <p className={classes.reviewText}>"{review.reviewText}"</p>
                 </div>
                 {isAdmin && (

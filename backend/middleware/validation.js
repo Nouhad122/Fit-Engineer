@@ -109,8 +109,8 @@ const validateClientForm = [
   handleValidationErrors
 ];
 
-// Review validation rules
-const validateReview = [
+// Admin form validation rules
+const validateAdminForm = [
   body('clientName')
     .trim()
     .notEmpty().withMessage('Client name is required')
@@ -123,6 +123,7 @@ const validateReview = [
 
   handleValidationErrors
 ];
+
 
 // Login validation rules
 const validateLogin = [
@@ -148,7 +149,7 @@ const validateLogin = [
 
 module.exports = {
   validateClientForm,
-  validateReview,
+  validateAdminForm,
   validateLogin,
   handleValidationErrors
 }; 

@@ -1,48 +1,76 @@
 const HttpError = require('../models/http-error');
 const Review = require('../models/review');
-const uuid = require('uuid');
 
-exports.getReviews = async (req, res, next) =>{
-    let reviews;
-     try{
-        reviews = await Review.find();
-     }
-     catch(err){
+exports.getReviews = async (req, res, next) => {
+    try {
+        const reviews = await Review.find().sort({ _id: -1 });
+        
+        res.status(200).json({
+            success: true,
+            count: reviews.length,
+            reviews: reviews.map(review => review.toObject({ getters: true }))
+        });
+    } catch (err) {
+        console.error('Get reviews error:', err);
         const error = new HttpError('Something went wrong, could not find reviews.', 500);
         return next(error);
-     }
-     res.json({reviews: reviews.map(review => review.toObject({getters: true}))});
-}
+    }
+};
 
-exports.createReview = async(req, res, next) =>{
+exports.createReview = async (req, res, next) => {
     const { clientName, reviewText } = req.body;
+    
+    if (!clientName || !reviewText) {
+        const error = new HttpError('Client name and review text are required.', 400);
+        return next(error);
+    }
+    
     const createdReview = new Review({
-        id: uuid.v4(),
-        clientName,
-        reviewText
+        clientName: clientName.trim(),
+        reviewText: reviewText.trim(),
     });
     
-    try{
-        await createdReview.save();
-    }
-    catch(err){
+    try {
+        const savedReview = await createdReview.save();
+        
+        res.status(201).json({
+            success: true,
+            message: 'Review created successfully',
+            review: savedReview.toObject({ getters: true })
+        });
+    } catch (err) {
+        console.error('Create review error:', err);
         const error = new HttpError('Something went wrong, could not create review.', 500);
         return next(error);
     }
-    res.status(201).json({review: createdReview});
-}
+};
 
-exports.deleteReview = async(req, res, next) =>{
+exports.deleteReview = async (req, res, next) => {
     const reviewId = req.params.rid;
-    try{
-        const review = await Review.findByIdAndDelete(reviewId);
-        if(!review){
-            return next(new HttpError('Could not find a review for the provided id.', 404));
-        }
-        res.status(200).json({message: 'Review deleted.'});
+    
+    if (!reviewId) {
+        const error = new HttpError('Review ID is required.', 400);
+        return next(error);
     }
-    catch(err){
+    
+    try {
+        const review = await Review.findByIdAndDelete(reviewId);
+        
+        if (!review) {
+            const error = new HttpError('Could not find a review for the provided id.', 404);
+            return next(error);
+        }
+        
+        res.status(200).json({
+            success: true,
+            message: 'Review deleted successfully.',
+            deletedReview: review.toObject({ getters: true })
+        });
+    } catch (err) {
+        console.error('Delete review error:', err);
         const error = new HttpError('Something went wrong, could not delete review.', 500);
         return next(error);
     }
-}
+};
+
+

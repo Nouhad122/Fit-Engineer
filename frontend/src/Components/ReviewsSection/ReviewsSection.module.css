@@ -106,6 +106,24 @@
   margin-bottom: 1.5rem;
 }
 
+.reviewImage {
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.reviewImage img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.reviewImage img:hover {
+  transform: scale(1.02);
+}
+
 .reviewText {
   font-size: 1rem;
   line-height: 1.7;
