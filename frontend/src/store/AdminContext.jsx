@@ -4,7 +4,8 @@ const AdminContext = createContext({
     isAdmin: false,
     updateAdminStatus: () => {},
     logoutAdmin: () => {},
-    refreshReviews: () => {}
+    refreshReviews: () => {},
+    refreshTransformations: () => {}
 });
 
 export const AdminContextProvider = ({children}) => {
@@ -24,6 +25,10 @@ export const AdminContextProvider = ({children}) => {
     const refreshReviews = () => {
         window.dispatchEvent(new Event('reviewsUpdated'));
     }
+
+    const refreshTransformations = () => {
+        window.dispatchEvent(new Event('transformationsUpdated'));
+    }
     
     useEffect(() => {
         updateAdminStatus();
@@ -41,7 +46,14 @@ export const AdminContextProvider = ({children}) => {
     }, []);
     
     return (
-        <AdminContext.Provider value={{ isAdmin, updateAdminStatus, logoutAdmin, refreshReviews }}>
+        <AdminContext.Provider value={{
+         isAdmin,
+         updateAdminStatus,
+         logoutAdmin,
+         refreshReviews,
+         refreshTransformations 
+        }}
+        >
             {children}
         </AdminContext.Provider>
     )

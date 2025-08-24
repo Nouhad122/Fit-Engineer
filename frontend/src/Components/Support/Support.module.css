@@ -1,7 +1,7 @@
 .supportSection{
     text-align: center;
     padding: 3rem;
-    background-color: var(--second-bg-color);
+    background-color: var(--bg-color);
   }
   .supportIcon {
     font-size: 4rem;

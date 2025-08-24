@@ -15,8 +15,10 @@ const transformationSchema = new Schema({
     
     transformationImages: {
         type: [String],
-        required: false //need to change to true after image upload is implemented
+        required: true,
+        default: []
     }
+    
 }, {
     timestamps: true
 });

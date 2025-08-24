@@ -110,7 +110,7 @@ const validateClientForm = [
 ];
 
 // Admin form validation rules
-const validateAdminForm = [
+const validateReviewForm = [
   body('clientName')
     .trim()
     .notEmpty().withMessage('Client name is required')
@@ -120,6 +120,30 @@ const validateAdminForm = [
     .trim()
     .notEmpty().withMessage('Review text is required')
     .isLength({ min: 10, max: 1000 }).withMessage('Review text must be between 10 and 1000 characters'),
+
+  handleValidationErrors
+];
+
+// Transformation form validation rules
+const validateTransformationForm = [
+  body('clientName')
+    .trim()
+    .notEmpty().withMessage('Client name is required')
+    .isLength({ min: 2, max: 100 }).withMessage('Client name must be between 2 and 100 characters'),
+
+  body('transformationText')
+    .trim()
+    .notEmpty().withMessage('Transformation text is required')
+    .isLength({ min: 10, max: 1000 }).withMessage('Transformation text must be between 10 and 1000 characters'),
+
+  body('transformationImages')
+    .isArray({ min: 1 }).withMessage('At least one transformation image is required')
+    .custom((arr) => {
+      if (!Array.isArray(arr) || arr.length === 0) {
+        throw new Error('At least one transformation image is required');
+      }
+      return true;
+    }),
 
   handleValidationErrors
 ];
@@ -149,7 +173,8 @@ const validateLogin = [
 
 module.exports = {
   validateClientForm,
-  validateAdminForm,
+  validateReviewForm,
+  validateTransformationForm,
   validateLogin,
   handleValidationErrors
 }; 

@@ -1,7 +1,7 @@
 .paymentSection {
     text-align: center;
     padding: 3rem;
-    background-color: var(--bg-color);
+    background-color: var(--second-bg-color);
 }
 .paymentGrid {
     display: flex;

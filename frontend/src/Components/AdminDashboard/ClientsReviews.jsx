@@ -9,7 +9,7 @@ import SelectableClients from './SelectableClients.jsx';
 const ClientsReviews = ({clients, selectedClient, setSelectedClient}) => {
   const { openedModal, openModal } = useContext(ModalContext);
   const { refreshReviews } = useContext(AdminContext);
-  const { createReviewAuthenticated } = useHttp();
+  const { createReview } = useHttp();
   const [review, setReview] = useState('');
   const [message, setMessage] = useState({text: '', type: ''});
 
@@ -23,7 +23,7 @@ const ClientsReviews = ({clients, selectedClient, setSelectedClient}) => {
         setMessage({text: 'Review must be at least 10 characters long.', type: 'error'});
         return;
       }
-      await createReviewAuthenticated({
+      await createReview({
         clientName: selectedClient.fullName, 
         reviewText: review,
       });

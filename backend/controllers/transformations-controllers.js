@@ -1,5 +1,7 @@
 const HttpError = require('../models/http-error');
 const Transformation = require('../models/transformation');
+const fs = require('fs').promises;
+const path = require('path');
 
 exports.getTransformations = async (req, res, next) => {
     try {
@@ -30,7 +32,7 @@ exports.createTransformation = async (req, res, next) => {
         const createdTransformation = new Transformation({
             clientName: clientName.trim(),
             transformationText: transformationText.trim(),
-            transformationImages: transformationImages.map(image => image.trim())
+            transformationImages: transformationImages || []
         });
 
         const savedTransformation = await createdTransformation.save();
@@ -56,11 +58,27 @@ exports.deleteTransformation = async (req, res, next) => {
     }
 
     try{
-        const deletedTransformation = await Transformation.findByIdAndDelete(transformationId);
-
-        if(!deletedTransformation) {
+        const transformation = await Transformation.findById(transformationId);
+        
+        if(!transformation) {
             const error = new HttpError('Could not find a transformation for the provided id.', 404);
             return next(error);
+        }
+
+        const deletedTransformation = await Transformation.findByIdAndDelete(transformationId);
+
+        if (transformation.transformationImages?.length > 0) {
+            const uploadsDir = path.join(__dirname, '..', 'public', 'uploads');
+            
+            for (const imagePath of transformation.transformationImages) {
+                try {
+                    const filename = imagePath.replace('/uploads/', '');
+                    const fullPath = path.join(uploadsDir, filename);
+                    await fs.unlink(fullPath);
+                } catch (err) {
+                    console.log(`Could not delete image: ${filename}`);
+                }
+            }
         }
 
         res.status(200).json({

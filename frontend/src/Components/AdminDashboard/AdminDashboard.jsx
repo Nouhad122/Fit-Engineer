@@ -12,7 +12,8 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
   const { getClients, loading, error } = useHttp();
   const [clients, setClients] = useState([]);
-  const [selectedClient, setSelectedClient] = useState(null);
+  const [selectedClientForReviews, setSelectedClientForReviews] = useState(null);
+  const [selectedClientForTransformations, setSelectedClientForTransformations] = useState(null);
 
     const fetchClients = async () => {
       try {
@@ -53,14 +54,14 @@ const AdminDashboard = () => {
 
         <ClientsReviews
           clients={clients}
-          selectedClient={selectedClient}
-          setSelectedClient={setSelectedClient}
+          selectedClient={selectedClientForReviews}
+          setSelectedClient={setSelectedClientForReviews}
         />
 
         <ClientsTransformation 
           clients={clients}
-          selectedClient={selectedClient}
-          setSelectedClient={setSelectedClient}
+          selectedClient={selectedClientForTransformations}
+          setSelectedClient={setSelectedClientForTransformations}
         />
       </div>
     </div>

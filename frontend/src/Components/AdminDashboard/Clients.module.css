@@ -95,6 +95,31 @@ font-weight: 700;
   cursor: not-allowed;
 }
 
+.uploadSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.uploadSection label {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.uploadStatus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  background: #e3f2fd;
+  border: 1px solid #2196f3;
+  border-radius: 6px;
+  color: #1976d2;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
 .message {
   padding: 0.75rem 1rem;
   border-radius: 8px;
