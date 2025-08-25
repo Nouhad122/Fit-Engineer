@@ -82,6 +82,7 @@ const TransformationsSection = () => {
   if (loading) {
     return (
       <section className={classes.transformationsSection}>
+        <h2 className={classes.title}>Client Transformations</h2>
         <div className={classes.loadingContainer}>
           <Spin size="large" />
           <Text>Loading transformations...</Text>
@@ -93,6 +94,7 @@ const TransformationsSection = () => {
   if (error) {
     return (
       <section className={classes.transformationsSection}>
+        <h2 className={classes.title}>Client Transformations</h2>
         <div className={classes.errorContainer}>
           <Text type="danger">Error loading transformations: {error}</Text>
         </div>
