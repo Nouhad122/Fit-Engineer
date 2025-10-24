@@ -25,9 +25,10 @@ const WhosMostafa = () => {
           <div className={classes.achievements}>
             <h3 className={classes.achievementsTitle}>🏆 Achievements</h3>
             <ul className={classes.achievementsList}>
-              <li>Top 1 men's physique north lebanon 2022</li>
-              <li>Top 1 MR UNIVERSE men's physique 2024</li>
-              <li>Top 1 MR UNIVERSE men's physique 2025</li>
+              <li><span>Top 2</span> men's physique north lebanon 2022</li>
+              <li><span>Top 1</span> MR UNIVERSE men's physique 2024</li>
+              <li><span>Top 1</span> MR UNIVERSE men's physique 2025</li>
+              <li><span>Top 1</span> World Cup men's physique 2025</li>
             </ul>
           </div>
           

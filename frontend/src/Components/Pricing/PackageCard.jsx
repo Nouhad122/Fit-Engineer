@@ -1,7 +1,7 @@
 import React from 'react'
 import classes from './Pricing.module.css'
 
-const PackageCard = ({ pack, price, originalPrice, description, features, popular }) => {
+const PackageCard = ({ pack, price, originalPrice, description, features, popular, tier, contactFrequency }) => {
   const hasDiscount = originalPrice && originalPrice !== price;
   const discountPercentage = hasDiscount 
     ? Math.round(((parseInt(originalPrice.replace('$', '')) - parseInt(price.replace('$', ''))) / parseInt(originalPrice.replace('$', ''))) * 100)
@@ -12,7 +12,10 @@ const PackageCard = ({ pack, price, originalPrice, description, features, popula
       {popular && <span className={classes.popularBadge}>Most Popular</span>}
       {hasDiscount && <span className={classes.discountBadge}>{discountPercentage}% OFF</span>}
       
-      <h3 className={classes.packageTitle}>{pack}</h3>
+      <div className={classes.packageHeader}>
+        <h3 className={classes.packageTitle}>{pack}</h3>
+        {tier && <span className={`${classes.tierBadge} ${classes[tier.toLowerCase()]}`}>{tier}</span>}
+      </div>
       
       <div className={classes.priceSection}>
         <p className={classes.packagePrice}>{price}</p>
@@ -20,6 +23,13 @@ const PackageCard = ({ pack, price, originalPrice, description, features, popula
       </div>
       
       {description && <p className={classes.packageDescription}>{description}</p>}
+      
+      {contactFrequency && (
+        <div className={classes.contactFrequency}>
+          <span className={classes.contactIcon}>📞</span>
+          <span className={classes.contactText}>{contactFrequency}</span>
+        </div>
+      )}
       
       {features && (
         <ul className={classes.featuresList}>

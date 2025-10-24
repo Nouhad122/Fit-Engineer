@@ -100,6 +100,11 @@
   font-weight: bold;
   font-size: 1.2rem;
 }
+.achievementsList li span{
+  color: var(--light-yellow);
+  font-weight: 600;
+  margin-right: .5rem;
+}
 
 .mission {
   font-size: 1.1rem;
