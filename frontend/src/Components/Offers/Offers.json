@@ -2,7 +2,6 @@
   {
     "id": "0",
     "cardTitle": "Custom Diet Plan",
-    "price": "$50",
     "featuresList": [
       "Personalized meal plans tailored to your body and goals",
       "Macronutrient breakdown and meal timing guidance"
@@ -13,7 +12,6 @@
   {
     "id": "1",
     "cardTitle": "Workout & Sport Rehab Plan",
-    "price": "$50",
     "featuresList": [
       "Tailored gym or home workouts for fat loss, muscle gain, or recovery.",
       "Includes sport rehabilitation for injury prevention and mobility improvement."
@@ -24,7 +22,6 @@
   {
     "id": "2",
     "cardTitle": "Steroid / PED Cycle Plan",
-    "price": "$50",
     "featuresList": [
       "Safe, customized anabolic cycles with PCT guidance.",
       "24/7 WhatsApp support.",

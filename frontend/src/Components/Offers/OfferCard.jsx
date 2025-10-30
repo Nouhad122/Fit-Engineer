@@ -8,14 +8,13 @@ const icons = {
   FaSyringe: <FaSyringe className={classes.icon} />
 };
 
-const OfferCard = ({ cardTitle, price, featuresList, planType, icon }) => {
+const OfferCard = ({ cardTitle, featuresList, planType, icon }) => {
   return (
     <div className={`${classes.offerCard} ${classes[planType]}`}>
       <div className={classes.iconContainer}>
         {icons[icon]}
       </div>
       <h3 className={classes.cardTitle}>{cardTitle}</h3>
-      <p className={classes.price}>{price}</p>
       <ul className={classes.featuresList}>
         {featuresList.map((feature, index) => (
           <li key={index}>{feature}</li>

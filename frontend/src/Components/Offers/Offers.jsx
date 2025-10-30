@@ -14,7 +14,6 @@ const Offers = () => {
             <OfferCard
               key={offer.id}
               cardTitle={offer.cardTitle}
-              price={offer.price}
               featuresList={offer.featuresList}
               planType={offer.planType}
               icon={offer.icon}
