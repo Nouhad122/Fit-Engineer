@@ -37,7 +37,6 @@ const WhosMostafa = () => {
             <ul className={classes.expertiseList}>
               <li>Lifestyle & Stage Prep Nutrition Expert</li>
               <li>Design training plans made just for your body and goal</li>
-              <li>Advanced Hormone Coach</li>
             </ul>
           </div>
           

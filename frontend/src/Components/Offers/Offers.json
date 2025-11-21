@@ -18,17 +18,5 @@
     ],
     "planType": "workoutPlan",
     "icon": "FaDumbbell"
-  },
-  {
-    "id": "2",
-    "cardTitle": "Steroid / PED Cycle Plan",
-    "featuresList": [
-      "Safe, customized anabolic cycles with PCT guidance.",
-      "24/7 WhatsApp support.",
-      "⚠️ Available only to clients aged 18 or older.",
-      "🧬 TRT (Testosterone Replacement Therapy) guidance available for men diagnosed with low testosterone."
-    ],
-    "planType": "pedPlan",
-    "icon": "FaSyringe"
   }
 ]
