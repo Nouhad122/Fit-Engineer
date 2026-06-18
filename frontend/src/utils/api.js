@@ -1,3 +1,11 @@
+export const getImageUrl = (imagePath) => {
+  if (!imagePath) return '';
+  if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
+    return imagePath;
+  }
+  return `${import.meta.env.VITE_API_URL}${imagePath}`;
+};
+
 // Utility function to get authenticated headers
 export const getAuthHeaders = () => {
     const token = localStorage.getItem('adminToken');

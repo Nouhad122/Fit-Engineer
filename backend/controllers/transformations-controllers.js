@@ -2,6 +2,7 @@ const HttpError = require('../models/http-error');
 const Transformation = require('../models/transformation');
 const fs = require('fs').promises;
 const path = require('path');
+const { deleteImage: deleteCloudinaryImage } = require('../utils/cloudinary');
 
 exports.getTransformations = async (req, res, next) => {
     try {
@@ -69,14 +70,18 @@ exports.deleteTransformation = async (req, res, next) => {
 
         if (transformation.transformationImages?.length > 0) {
             const uploadsDir = path.join(__dirname, '..', 'public', 'uploads');
-            
+
             for (const imagePath of transformation.transformationImages) {
                 try {
-                    const filename = imagePath.replace('/uploads/', '');
-                    const fullPath = path.join(uploadsDir, filename);
-                    await fs.unlink(fullPath);
+                    if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
+                        await deleteCloudinaryImage(imagePath);
+                    } else {
+                        const filename = imagePath.replace('/uploads/', '');
+                        const fullPath = path.join(uploadsDir, filename);
+                        await fs.unlink(fullPath);
+                    }
                 } catch (err) {
-                    console.log(`Could not delete image: ${filename}`);
+                    console.log(`Could not delete image: ${imagePath}`);
                 }
             }
         }

@@ -20,10 +20,11 @@ const app = express();
 const corsOptions = {
   origin: [
     'https://www.fit-engineer.net',
-    'http://localhost:5173' // Keep for local development
+    'http://localhost:5173',
+    'http://127.0.0.1:5173',
   ],
   credentials: true,
-  optionsSuccessStatus: 200
+  optionsSuccessStatus: 200,
 };
 
 app.use(cors(corsOptions));
@@ -54,6 +55,13 @@ mongoose.connect(process.env.MONGODB_URI)
     const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
+    }).on('error', (err) => {
+      if (err.code === 'EADDRINUSE') {
+        console.error(`Port ${PORT} is already in use. Stop the other process or change PORT in .env`);
+      } else {
+        console.error('Server failed to start:', err);
+      }
+      process.exit(1);
     });
   })
   .catch(err => {

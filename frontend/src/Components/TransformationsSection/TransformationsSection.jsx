@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Card, Row, Col, Pagination, Carousel, Typography, Spin, Empty } from 'antd';
 import useHttp from '../../hooks/useHttp';
+import { getImageUrl } from '../../utils/api';
 import classes from './TransformationsSection.module.css';
 import SectionClientName from '../Shared/SectionClientName';
 import ModalContext from '../../store/ModalContext';
@@ -136,7 +137,7 @@ const TransformationsSection = () => {
                   {transformation.transformationImages.map((image, imgIndex) => (
                     <div key={imgIndex} className={classes.carouselItem}>
                       <img
-                        src={`${import.meta.env.VITE_API_URL}${image}`}
+                        src={getImageUrl(image)}
                         alt={`Transformation ${index + 1} - Image ${imgIndex + 1}`}
                         className={classes.transformationImage}
                       />
