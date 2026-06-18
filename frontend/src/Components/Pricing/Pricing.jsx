@@ -11,14 +11,14 @@ const Pricing = () => {
         {/* Individual Plans */}
         <PackageCard 
           pack='1 Month Workout Plan' 
-          price='$70'
+          price='$100'
           tier='Standard'
           description='Professional workout plan tailored to your goals'
           contactFrequency='Weekly check-ins'
         />
         <PackageCard 
           pack='1 Month Diet Plan' 
-          price='$70'
+          price='$100'
           tier='Standard'
           description='Customized nutrition plan for optimal results'
           contactFrequency='Weekly check-ins'
@@ -27,7 +27,7 @@ const Pricing = () => {
         {/* Full Package 1 - Workout + Diet */}
         <PackageCard 
           pack='Full Package 1' 
-          price='$300'
+          price='$500'
           tier='Standard'
           description='3 months workout plan + diet plan'
           contactFrequency='Weekly check-ins'
@@ -41,7 +41,7 @@ const Pricing = () => {
         />
         <PackageCard 
           pack='Full Package 2' 
-          price='$500'
+          price='$900'
           tier='Premium'
           description='3 months workout plan + diet plan'
           contactFrequency='Daily coaching support'

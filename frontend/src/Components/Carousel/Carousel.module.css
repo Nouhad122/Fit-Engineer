@@ -15,6 +15,7 @@
     transform: translateX(-50%);
     width: fit-content;
     z-index: 1;
+    zoom: 115%;
 }
 .backdrop {
     position: absolute;
